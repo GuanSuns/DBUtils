@@ -75,6 +75,7 @@ public class Sheet411PersonalDao {
         psmt.setTimestamp(13, personalModel.getDate());
 
         psmt.execute();
+        DBUtils.closeConnection();
     }
 
     public static ArrayList<Sheet411PersonalModel> getRecentInstances(int days) throws Exception{
@@ -87,6 +88,8 @@ public class Sheet411PersonalDao {
             if(!checkTableExist(connection)){
                 createTable(connection);
                 tableExisted = true;
+
+                DBUtils.closeConnection();
                 return null;
             }
             tableExisted = true;
@@ -108,6 +111,7 @@ public class Sheet411PersonalDao {
             resultModels.add(sheet411PersonalModel);
         }
 
+        DBUtils.closeConnection();
         return resultModels;
     }
 }

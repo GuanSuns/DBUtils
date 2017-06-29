@@ -35,11 +35,11 @@ public class Sheet411ModelFiller {
     public static void fillCore(ResultSet resultSet, Sheet411CoreModel sheet411CoreModel){
 
         fillPersonal(resultSet, sheet411CoreModel);
-        final String[] filedNames = Sheet411Config.getFieldNames();
+        final String[] fieldNames = Sheet411Config.getFieldNames();
 
         try{
-            sheet411CoreModel.setUsage8(resultSet.getFloat(filedNames[13]));
-            sheet411CoreModel.setWeblogicUsage8(resultSet.getFloat(filedNames[14]));
+            sheet411CoreModel.setUsage8(resultSet.getFloat(fieldNames[13]));
+            sheet411CoreModel.setWeblogicUsage8(resultSet.getFloat(fieldNames[14]));
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -78,6 +78,7 @@ public class Sheet411CoreDao {
         psmt.setFloat(15, coreModel.getWeblogicUsage8());
 
         psmt.execute();
+        DBUtils.closeConnection();
     }
 
     public static ArrayList<Sheet411CoreModel> getRecentInstances(int days) throws Exception{
@@ -90,6 +91,8 @@ public class Sheet411CoreDao {
             if(!checkTableExist(connection)){
                 createTable(connection);
                 tableExisted = true;
+
+                DBUtils.closeConnection();
                 return null;
             }
             tableExisted = true;
@@ -111,6 +114,7 @@ public class Sheet411CoreDao {
             resultModels.add(sheet411CoreModel);
         }
 
+        DBUtils.closeConnection();
         return resultModels;
     }
 }

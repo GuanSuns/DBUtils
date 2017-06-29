@@ -3,37 +3,37 @@ package org.suns.config;
 /**
  * Created by guanl on 6/29/2017.
  */
-public class Sheet421Config {
-    private static String personalTableName = "personal421";
-    private static String coreTableName = "core421";
+public class Sheet422Config {
+    private static String personalTableName = "personal422";
+    private static String coreTableName = "core422";
 
-    private static String[] fieldNames = {"usage2", "u01Usage2", "goldUsage2"
-            , "usage3", "u01Usage3"
-            , "inspectionTime"
-            , "usage4", "u01Usage4", "goldUsage4"
-            , "usage5", "u01Usage5"
+    private static String[] fieldNames = {"tsName2", "totalSpace2", "usedSpace2"
+            , "usage2", "inspectionTime"
+            , "tsName3", "totalSpace3", "usedSpace3", "usage3"
+            , "tsName4", "totalSpace4", "usedSpace4", "usage4"
     };
 
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
-            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[0] + " VARCHAR(30)"
             + " , " + fieldNames[1] + " NUMERIC(38,2)"
             + " , " + fieldNames[2] + " NUMERIC(38,2)"
             + " , " + fieldNames[3] + " NUMERIC(38,2)"
-            + " , " + fieldNames[4] + " NUMERIC(38,2)"
-            + " , " + fieldNames[5] + " DATETIME)";
+            + " , " + fieldNames[4] + " DATETIME)";
 
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
-            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[0] + " VARCHAR(30)"
             + " , " + fieldNames[1] + " NUMERIC(38,2)"
             + " , " + fieldNames[2] + " NUMERIC(38,2)"
             + " , " + fieldNames[3] + " NUMERIC(38,2)"
-            + " , " + fieldNames[4] + " NUMERIC(38,2)"
-            + " , " + fieldNames[5] + " DATETIME"
+            + " , " + fieldNames[4] + " DATETIME"
+            + " , " + fieldNames[5] + " VARCHAR(30)"
             + " , " + fieldNames[6] + " NUMERIC(38,2)"
             + " , " + fieldNames[7] + " NUMERIC(38,2)"
             + " , " + fieldNames[8] + " NUMERIC(38,2)"
-            + " , " + fieldNames[9] + " NUMERIC(38,2)"
-            + " , " + fieldNames[10] + " NUMERIC(38,2))";
+            + " , " + fieldNames[9] + " VARCHAR(30)"
+            + " , " + fieldNames[10] + " NUMERIC(38,2)"
+            + " , " + fieldNames[11] + " NUMERIC(38,2)"
+            + " , " + fieldNames[12] + " NUMERIC(38,2))";
 
 
     public static String getPersonalTableName() {
@@ -41,7 +41,7 @@ public class Sheet421Config {
     }
 
     public static void setPersonalTableName(String personalTableName) {
-        Sheet421Config.personalTableName = personalTableName;
+        Sheet422Config.personalTableName = personalTableName;
     }
 
     public static String getCoreTableName() {
@@ -49,7 +49,7 @@ public class Sheet421Config {
     }
 
     public static void setCoreTableName(String coreTableName) {
-        Sheet421Config.coreTableName = coreTableName;
+        Sheet422Config.coreTableName = coreTableName;
     }
 
     public static String[] getFieldNames() {
@@ -57,15 +57,15 @@ public class Sheet421Config {
     }
 
     public static void setFieldNames(String[] fieldNames) {
-        Sheet421Config.fieldNames = fieldNames;
+        Sheet422Config.fieldNames = fieldNames;
     }
 
     public static void setPersonalTableDefinition(String personalTableDefinition) {
-        Sheet421Config.personalTableDefinition = personalTableDefinition;
+        Sheet422Config.personalTableDefinition = personalTableDefinition;
     }
 
     public static void setCoreTableDefinition(String coreTableDefinition) {
-        Sheet421Config.coreTableDefinition = coreTableDefinition;
+        Sheet422Config.coreTableDefinition = coreTableDefinition;
     }
 
     public static String getPersonalTableDefinition() {

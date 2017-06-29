@@ -1,9 +1,9 @@
 package org.suns.dao;
 
-import org.suns.config.Sheet421Config;
-import org.suns.model.Sheet421PersonalModel;
+import org.suns.config.Sheet422Config;
+import org.suns.model.Sheet422PersonalModel;
 import org.suns.utils.DBUtils;
-import org.suns.utils.Sheet421ModelFiller;
+import org.suns.utils.Sheet422ModelFiller;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.ArrayList;
 /**
  * Created by guanl on 6/29/2017.
  */
-public class Sheet421PersonalDao {
+public class Sheet422PersonalDao {
     private static boolean tableExisted = false;
 
     private static boolean checkTableExist(Connection connection) throws Exception{
         DatabaseMetaData meta = connection.getMetaData();
         ResultSet resultSet = meta.getTables(null, null
-                , Sheet421Config.getPersonalTableName(), null);
+                , Sheet422Config.getPersonalTableName(), null);
 
         boolean result = false;
         if(resultSet.next()){
@@ -29,13 +29,13 @@ public class Sheet421PersonalDao {
 
     private static void createTable(Connection connection) throws Exception{
         Statement statement = connection.createStatement();
-        String sql = Sheet421Config.getPersonalTableDefinition();
+        String sql = Sheet422Config.getPersonalTableDefinition();
         statement.executeUpdate(sql);
     }
 
-    public static void addInstance(Sheet421PersonalModel personalModel) throws Exception{
+    public static void addInstance(Sheet422PersonalModel personalModel) throws Exception{
         if(personalModel == null){
-            throw new Exception("Uninitialized Sheet 421 Personal Model");
+            throw new Exception("Uninitialized Sheet 422 Personal Model");
         }
 
         Connection connection = DBUtils.getConnection();
@@ -47,28 +47,28 @@ public class Sheet421PersonalDao {
             tableExisted = true;
         }
 
-        String[] fieldNames = Sheet421Config.getFieldNames();
+        String[] fieldNames = Sheet422Config.getFieldNames();
 
-        String sql = "INSERT INTO " + Sheet421Config.getPersonalTableName()
+        String sql = "INSERT INTO " + Sheet422Config.getPersonalTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + "," + fieldNames[2] + "," + fieldNames[3]
-                + "," + fieldNames[4] + "," + fieldNames[5]
+                + "," + fieldNames[4]
                 + ", id) " + "VALUES("
-                + "?,?,?,?,?,?,0)";
+                + "?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setFloat(1, personalModel.getUsage2());
-        psmt.setFloat(2, personalModel.getU01Usage2());
-        psmt.setFloat(3, personalModel.getGoldUsage2());
-        psmt.setFloat(4, personalModel.getUsage3());
-        psmt.setFloat(5, personalModel.getU01Usage3());
-        psmt.setTimestamp(6, personalModel.getDate());
+        psmt.setString(1, personalModel.getTsName2());
+        psmt.setFloat(2, personalModel.getTsTotalSpace2());
+        psmt.setFloat(3, personalModel.getTsUsedSpace2());
+        psmt.setFloat(4, personalModel.getTsUsage2());
+        psmt.setTimestamp(5, personalModel.getDate());
 
         psmt.execute();
+
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet421PersonalModel> getRecentInstances(int days) throws Exception{
+    public static ArrayList<Sheet422PersonalModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
@@ -85,23 +85,24 @@ public class Sheet421PersonalDao {
             tableExisted = true;
         }
 
-        final String[] fieldNames = Sheet421Config.getFieldNames();
+        final String[] fieldNames = Sheet422Config.getFieldNames();
 
-        String sql = "SELECT * FROM " + Sheet421Config.getPersonalTableName()
+        String sql = "SELECT * FROM " + Sheet422Config.getPersonalTableName()
                 + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[5] + ")";
+                + " DAY) <= DATE(" + fieldNames[4] + ")";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);
 
-        ArrayList<Sheet421PersonalModel> resultModels = new ArrayList<>();
+        ArrayList<Sheet422PersonalModel> resultModels = new ArrayList<>();
         while(resultSet.next()){
-            Sheet421PersonalModel sheet421PersonalModel = new Sheet421PersonalModel();
-            Sheet421ModelFiller.fillPersonal(resultSet, sheet421PersonalModel);
-            resultModels.add(sheet421PersonalModel);
+            Sheet422PersonalModel sheet422PersonalModel = new Sheet422PersonalModel();
+            Sheet422ModelFiller.fillPersonal(resultSet, sheet422PersonalModel);
+            resultModels.add(sheet422PersonalModel);
         }
 
         DBUtils.closeConnection();
+
         return resultModels;
     }
 }

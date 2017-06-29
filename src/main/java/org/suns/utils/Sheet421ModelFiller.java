@@ -28,14 +28,14 @@ public class Sheet421ModelFiller {
     public static void fillCore(ResultSet resultSet, Sheet421CoreModel sheet421CoreModel){
 
         fillPersonal(resultSet, sheet421CoreModel);
-        final String[] filedNames = Sheet421Config.getFieldNames();
+        final String[] fieldNames = Sheet421Config.getFieldNames();
 
         try{
-            sheet421CoreModel.setUsage4(resultSet.getFloat(filedNames[6]));
-            sheet421CoreModel.setU01Usage4(resultSet.getFloat(filedNames[7]));
-            sheet421CoreModel.setGoldUsage4(resultSet.getFloat(filedNames[8]));
-            sheet421CoreModel.setUsage5(resultSet.getFloat(filedNames[9]));
-            sheet421CoreModel.setU01Usage5(resultSet.getFloat(filedNames[10]));
+            sheet421CoreModel.setUsage4(resultSet.getFloat(fieldNames[6]));
+            sheet421CoreModel.setU01Usage4(resultSet.getFloat(fieldNames[7]));
+            sheet421CoreModel.setGoldUsage4(resultSet.getFloat(fieldNames[8]));
+            sheet421CoreModel.setUsage5(resultSet.getFloat(fieldNames[9]));
+            sheet421CoreModel.setU01Usage5(resultSet.getFloat(fieldNames[10]));
         }catch (Exception e){
             e.printStackTrace();
         }

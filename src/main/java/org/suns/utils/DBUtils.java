@@ -24,7 +24,7 @@ public class DBUtils {
         return connection;
     }
 
-    private static void closeConnection() throws Exception{
+    public static void closeConnection() throws Exception{
         if(connection != null){
             connection.close();
             connection = null;
