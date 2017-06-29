@@ -47,17 +47,17 @@ public class Sheet411CoreDao {
             tableExisted = true;
         }
 
-        String[] filedNames = Sheet411Config.getFiledNames();
+        String[] fieldNames = Sheet411Config.getFieldNames();
 
         String sql = "INSERT INTO " + Sheet411Config.getCoreTableName()
-                + " (" + filedNames[0] + "," + filedNames[1]
-                + "," + filedNames[2] + "," + filedNames[3]
-                + "," + filedNames[4] + "," + filedNames[5]
-                + "," + filedNames[6] + "," + filedNames[7]
-                + "," + filedNames[8] + "," + filedNames[9]
-                + "," + filedNames[10] + "," + filedNames[11]
-                + "," + filedNames[12] + "," + filedNames[13]
-                + "," + filedNames[14] + ", id) " + "VALUES("
+                + " (" + fieldNames[0] + "," + fieldNames[1]
+                + "," + fieldNames[2] + "," + fieldNames[3]
+                + "," + fieldNames[4] + "," + fieldNames[5]
+                + "," + fieldNames[6] + "," + fieldNames[7]
+                + "," + fieldNames[8] + "," + fieldNames[9]
+                + "," + fieldNames[10] + "," + fieldNames[11]
+                + "," + fieldNames[12] + "," + fieldNames[13]
+                + "," + fieldNames[14] + ", id) " + "VALUES("
                 + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
@@ -95,11 +95,11 @@ public class Sheet411CoreDao {
             tableExisted = true;
         }
 
-        String[] filedNames = Sheet411Config.getFiledNames();
+        String[] fieldNames = Sheet411Config.getFieldNames();
 
         String sql = "SELECT * FROM " + Sheet411Config.getCoreTableName()
                 + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + filedNames[12] + ")";
+                + " DAY) <= DATE(" + fieldNames[12] + ")";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

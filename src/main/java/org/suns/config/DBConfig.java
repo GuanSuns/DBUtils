@@ -13,6 +13,12 @@ public class DBConfig {
     private static String name = "root";
     private static String password = "guanlin25";
 
+    private static int defaultNumericNullValue = -1;
+
+    public static void setDefaultNumericNullValue(int defaultNumericNullValue) {
+        DBConfig.defaultNumericNullValue = defaultNumericNullValue;
+    }
+
     public static void setDriver(String driver) {
         DBConfig.driver = driver;
     }
@@ -43,5 +49,9 @@ public class DBConfig {
 
     public static String getPassword() {
         return password;
+    }
+
+    public static int getDefaultNumericNullValue() {
+        return defaultNumericNullValue;
     }
 }

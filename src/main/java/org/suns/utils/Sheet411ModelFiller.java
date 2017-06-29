@@ -11,7 +11,7 @@ import java.sql.ResultSet;
  */
 public class Sheet411ModelFiller {
     public static void fillPersonal(ResultSet resultSet, Sheet411PersonalModel sheet411PersonalModel){
-        final String[] personalFiledNames = Sheet411Config.getFiledNames();
+        final String[] personalFiledNames = Sheet411Config.getFieldNames();
 
         try{
             sheet411PersonalModel.setUsage2(resultSet.getFloat(personalFiledNames[0]));
@@ -35,7 +35,7 @@ public class Sheet411ModelFiller {
     public static void fillCore(ResultSet resultSet, Sheet411CoreModel sheet411CoreModel){
 
         fillPersonal(resultSet, sheet411CoreModel);
-        final String[] filedNames = Sheet411Config.getFiledNames();
+        final String[] filedNames = Sheet411Config.getFieldNames();
 
         try{
             sheet411CoreModel.setUsage8(resultSet.getFloat(filedNames[13]));

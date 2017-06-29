@@ -47,16 +47,16 @@ public class Sheet411PersonalDao {
             tableExisted = true;
         }
 
-        String[] personalFiledNames = Sheet411Config.getFiledNames();
+        String[] personalFieldNames = Sheet411Config.getFieldNames();
 
         String sql = "INSERT INTO " + Sheet411Config.getPersonalTableName()
-                + " (" + personalFiledNames[0] + "," + personalFiledNames[1]
-                + "," + personalFiledNames[2] + "," + personalFiledNames[3]
-                + "," + personalFiledNames[4] + "," + personalFiledNames[5]
-                + "," + personalFiledNames[6] + "," + personalFiledNames[7]
-                + "," + personalFiledNames[8] + "," + personalFiledNames[9]
-                + "," + personalFiledNames[10] + "," + personalFiledNames[11]
-                + "," + personalFiledNames[12] + ", id) " + "VALUES("
+                + " (" + personalFieldNames[0] + "," + personalFieldNames[1]
+                + "," + personalFieldNames[2] + "," + personalFieldNames[3]
+                + "," + personalFieldNames[4] + "," + personalFieldNames[5]
+                + "," + personalFieldNames[6] + "," + personalFieldNames[7]
+                + "," + personalFieldNames[8] + "," + personalFieldNames[9]
+                + "," + personalFieldNames[10] + "," + personalFieldNames[11]
+                + "," + personalFieldNames[12] + ", id) " + "VALUES("
                 + "?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
@@ -85,7 +85,6 @@ public class Sheet411PersonalDao {
 
         if(!tableExisted){
             if(!checkTableExist(connection)){
-                System.out.println("Create Table");
                 createTable(connection);
                 tableExisted = true;
                 return null;
@@ -93,11 +92,11 @@ public class Sheet411PersonalDao {
             tableExisted = true;
         }
 
-        String[] personalFiledNames = Sheet411Config.getFiledNames();
+        String[] personalFieldNames = Sheet411Config.getFieldNames();
 
         String sql = "SELECT * FROM " + Sheet411Config.getPersonalTableName()
                 + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + personalFiledNames[12] + ")";
+                + " DAY) <= DATE(" + personalFieldNames[12] + ")";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

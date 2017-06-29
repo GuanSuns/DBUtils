@@ -7,7 +7,7 @@ public class Sheet411Config {
     private static String personalTableName = "personal411";
     private static String coreTableName = "core411";
 
-    private static String[] filedNames = {"usage2", "weblogicUsage2"
+    private static String[] fieldNames = {"usage2", "weblogicUsage2"
             , "usage3", "weblogicUsage3"
             , "usage4", "weblogicUsage4"
             , "usage5", "weblogicUsage5"
@@ -17,36 +17,36 @@ public class Sheet411Config {
     };
 
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
-            + " , " + filedNames[0] + " NUMERIC(38,2)"
-            + " , " + filedNames[1] + " NUMERIC(38,2)"
-            + " , " + filedNames[2] + " NUMERIC(38,2)"
-            + " , " + filedNames[3] + " NUMERIC(38,2)"
-            + " , " + filedNames[4] + " NUMERIC(38,2)"
-            + " , " + filedNames[5] + " NUMERIC(38,2)"
-            + " , " + filedNames[6] + " NUMERIC(38,2)"
-            + " , " + filedNames[7] + " NUMERIC(38,2)"
-            + " , " + filedNames[8] + " NUMERIC(38,2)"
-            + " , " + filedNames[9] + " NUMERIC(38,2)"
-            + " , " + filedNames[10] + " NUMERIC(38,2)"
-            + " , " + filedNames[11] + " NUMERIC(38,2)"
-            + " , " + filedNames[12] + " DATETIME)";
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " NUMERIC(38,2)"
+            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[7] + " NUMERIC(38,2)"
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " NUMERIC(38,2)"
+            + " , " + fieldNames[10] + " NUMERIC(38,2)"
+            + " , " + fieldNames[11] + " NUMERIC(38,2)"
+            + " , " + fieldNames[12] + " DATETIME)";
 
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
-            + " , " + filedNames[0] + " NUMERIC(38,2)"
-            + " , " + filedNames[1] + " NUMERIC(38,2)"
-            + " , " + filedNames[2] + " NUMERIC(38,2)"
-            + " , " + filedNames[3] + " NUMERIC(38,2)"
-            + " , " + filedNames[4] + " NUMERIC(38,2)"
-            + " , " + filedNames[5] + " NUMERIC(38,2)"
-            + " , " + filedNames[6] + " NUMERIC(38,2)"
-            + " , " + filedNames[7] + " NUMERIC(38,2)"
-            + " , " + filedNames[8] + " NUMERIC(38,2)"
-            + " , " + filedNames[9] + " NUMERIC(38,2)"
-            + " , " + filedNames[10] + " NUMERIC(38,2)"
-            + " , " + filedNames[11] + " NUMERIC(38,2)"
-            + " , " + filedNames[12] + " DATETIME"
-            + " , " + filedNames[13] + " NUMERIC(38,2)"
-            + " , " + filedNames[14] + " NUMERIC(38,2))";
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " NUMERIC(38,2)"
+            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[7] + " NUMERIC(38,2)"
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " NUMERIC(38,2)"
+            + " , " + fieldNames[10] + " NUMERIC(38,2)"
+            + " , " + fieldNames[11] + " NUMERIC(38,2)"
+            + " , " + fieldNames[12] + " DATETIME"
+            + " , " + fieldNames[13] + " NUMERIC(38,2)"
+            + " , " + fieldNames[14] + " NUMERIC(38,2))";
 
 
     public static String getPersonalTableName() {
@@ -57,8 +57,8 @@ public class Sheet411Config {
         return coreTableName;
     }
 
-    public static String[] getFiledNames() {
-        return filedNames;
+    public static String[] getFieldNames() {
+        return fieldNames;
     }
 
     public static String getPersonalTableDefinition() {
@@ -81,8 +81,8 @@ public class Sheet411Config {
         Sheet411Config.coreTableName = coreTableName;
     }
 
-    public static void setFiledNames(String[] filedNames) {
-        Sheet411Config.filedNames = filedNames;
+    public static void setFieldNames(String[] fieldNames) {
+        Sheet411Config.fieldNames = fieldNames;
     }
 
     public static void setPersonalTableDefinition(String personalTableDefinition) {
