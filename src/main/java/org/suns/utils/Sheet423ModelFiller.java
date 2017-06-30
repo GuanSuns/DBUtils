@@ -30,11 +30,6 @@ public class Sheet423ModelFiller {
         final String[] fieldNames = Sheet423Config.getFieldNames();
 
         try{
-            sheet423CoreModel.setAsmName2(resultSet.getString(fieldNames[0]));
-            sheet423CoreModel.setTotalSpace2(resultSet.getInt(fieldNames[1]));
-            sheet423CoreModel.setRemainSpace2(resultSet.getInt(fieldNames[2]));
-            sheet423CoreModel.setUsage2(resultSet.getFloat(fieldNames[3]));
-            sheet423CoreModel.setDate(resultSet.getTimestamp(fieldNames[4]));
             sheet423CoreModel.setAsmName3(resultSet.getString(fieldNames[5]));
             sheet423CoreModel.setTotalSpace3(resultSet.getInt(fieldNames[6]));
             sheet423CoreModel.setRemainSpace3(resultSet.getInt(fieldNames[7]));
