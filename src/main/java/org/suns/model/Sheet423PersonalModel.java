@@ -68,4 +68,15 @@ public class Sheet423PersonalModel {
     public void setUsage2(Float usage2) {
         this.usage2 = usage2;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet423PersonalModel{" +
+                "date=" + date +
+                ", asmName2='" + asmName2 +
+                ", totalSpace2=" + totalSpace2 +
+                ", remainSpace2=" + remainSpace2 +
+                ", usage2=" + usage2 +
+                '}';
+    }
 }

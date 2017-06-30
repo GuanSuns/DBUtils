@@ -8,7 +8,7 @@ import org.suns.model.Sheet423PersonalModel;
 /**
  * Created by guanl on 6/30/2017.
  */
-public class Sheet423Conroller {
+public class Sheet423Controller {
     public static boolean addPersonal(Sheet423PersonalModel sheet423PersonalModel){
         if(sheet423PersonalModel == null){
             return false;

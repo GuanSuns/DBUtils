@@ -66,14 +66,14 @@ public class Sheet423CoreDao {
         psmt.setFloat(3, CoreModel.getRemainSpace2());
         psmt.setFloat(4, CoreModel.getUsage2());
         psmt.setTimestamp(5, CoreModel.getDate());
-        psmt.setString(1, CoreModel.getAsmName3());
-        psmt.setFloat(2, CoreModel.getTotalSpace3());
-        psmt.setFloat(3, CoreModel.getRemainSpace3());
-        psmt.setFloat(4, CoreModel.getUsage3());
-        psmt.setString(1, CoreModel.getAsmName4());
-        psmt.setFloat(2, CoreModel.getTotalSpace4());
-        psmt.setFloat(3, CoreModel.getRemainSpace4());
-        psmt.setFloat(4, CoreModel.getUsage4());
+        psmt.setString(6, CoreModel.getAsmName3());
+        psmt.setFloat(7, CoreModel.getTotalSpace3());
+        psmt.setFloat(8, CoreModel.getRemainSpace3());
+        psmt.setFloat(9, CoreModel.getUsage3());
+        psmt.setString(10, CoreModel.getAsmName4());
+        psmt.setFloat(11, CoreModel.getTotalSpace4());
+        psmt.setFloat(12, CoreModel.getRemainSpace4());
+        psmt.setFloat(13, CoreModel.getUsage4());
 
         psmt.execute();
 

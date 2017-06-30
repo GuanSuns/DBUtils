@@ -2,9 +2,11 @@ import org.junit.Test;
 import org.suns.dao.Sheet411CoreDao;
 import org.suns.dao.Sheet411PersonalDao;
 import org.suns.dao.Sheet422CoreDao;
+import org.suns.dao.Sheet424PersonalDao;
 import org.suns.model.Sheet411CoreModel;
 import org.suns.model.Sheet411PersonalModel;
 import org.suns.model.Sheet422CoreModel;
+import org.suns.model.Sheet424PersonalModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.GregorianCalendar;
  * Created by guanl on 6/28/2017.
  */
 public class DBTest {
-    //@Test
+    @Test
     public void test_sheet411(){
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
@@ -24,13 +26,15 @@ public class DBTest {
         calendar.add(calendar.DATE, -2);
         date = calendar.getTime();
         Timestamp currentTime = new Timestamp(date.getTime());
-        Sheet411PersonalModel sheet411PersonalModel = new Sheet411PersonalModel(currentTime, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.08f, 0.09f, 0.10f, 0.11f, 0.12f, 0.13f);
+        Sheet424PersonalModel sheet411PersonalModel = new Sheet424PersonalModel(currentTime,currentTime, "test String");
         try{
-            //Sheet411PersonalDao.addInstance(sheet411PersonalModel);
+            Sheet424PersonalDao.addInstance(sheet411PersonalModel);
+            /*
             ArrayList<Sheet411PersonalModel> models = Sheet411PersonalDao.getRecentInstances(2);
             for(Sheet411PersonalModel model : models){
                 System.out.println(model.toString());
-            }
+            }*/
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -58,7 +62,7 @@ public class DBTest {
         }
     }
 
-    @Test
+    //@Test
     public void test_sheet422Core(){
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();

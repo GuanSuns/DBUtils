@@ -51,7 +51,9 @@ public class Sheet424Config {
     }
 
     public static String getPersonalTableDefinition() {
-        return personalTableDefinition;
+        String strDefinition = "CREATE TABLE " + personalTableName
+                + " " + personalTableDefinition;
+        return strDefinition;
     }
 
     public static void setPersonalTableDefinition(String personalTableDefinition) {
@@ -59,7 +61,9 @@ public class Sheet424Config {
     }
 
     public static String getCoreTableDefinition() {
-        return coreTableDefinition;
+        String strDefinition = "CREATE TABLE " + coreTableName
+                + " " + coreTableDefinition;
+        return strDefinition;
     }
 
     public static void setCoreTableDefinition(String coreTableDefinition) {
