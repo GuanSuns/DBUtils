@@ -1,12 +1,10 @@
 import org.junit.Test;
-import org.suns.dao.Sheet411CoreDao;
-import org.suns.dao.Sheet411PersonalDao;
-import org.suns.dao.Sheet422CoreDao;
-import org.suns.dao.Sheet424PersonalDao;
-import org.suns.model.Sheet411CoreModel;
-import org.suns.model.Sheet411PersonalModel;
-import org.suns.model.Sheet422CoreModel;
-import org.suns.model.Sheet424PersonalModel;
+import org.suns.database.utills.dao.Sheet411CoreDao;
+import org.suns.database.utills.dao.Sheet422CoreDao;
+import org.suns.database.utills.dao.Sheet424PersonalDao;
+import org.suns.database.utills.model.Sheet411CoreModel;
+import org.suns.database.utills.model.Sheet422CoreModel;
+import org.suns.database.utills.model.Sheet424PersonalModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
