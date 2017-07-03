@@ -20,7 +20,7 @@ public class Sheet429Config {
             + " , " + fieldNames[0] + " LONGTEXT"
             + " , " + fieldNames[1] + " DATETIME"
             + " , " + fieldNames[2] + " LONGTEXT"
-            + " , " + fieldNames[3] + " LONGTEXT";
+            + " , " + fieldNames[3] + " LONGTEXT)";
 
     public static String getPersonalTableName() {
         return personalTableName;
