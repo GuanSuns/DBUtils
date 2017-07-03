@@ -21,10 +21,10 @@ public class Sheet424Config {
             + " , " + fieldNames[0] + " DATETIME"
             + " , " + fieldNames[1] + " VARCHAR(30)"
             + " , " + fieldNames[2] + " DATETIME"
-            + " , " + fieldNames[0] + " DATETIME"
-            + " , " + fieldNames[1] + " VARCHAR(30)"
-            + " , " + fieldNames[0] + " DATETIME"
-            + " , " + fieldNames[1] + " VARCHAR(30))";
+            + " , " + fieldNames[3] + " DATETIME"
+            + " , " + fieldNames[4] + " VARCHAR(30)"
+            + " , " + fieldNames[5] + " DATETIME"
+            + " , " + fieldNames[6] + " VARCHAR(30))";
 
     public static String getPersonalTableName() {
         return personalTableName;

@@ -5,6 +5,8 @@ import org.suns.database.utils.dao.Sheet428PersonalDao;
 import org.suns.database.utils.model.Sheet428CoreModel;
 import org.suns.database.utils.model.Sheet428PersonalModel;
 
+import java.util.ArrayList;
+
 /**
  * Created by guanl on 6/30/2017.
  */
@@ -37,5 +39,13 @@ public class Sheet428Controller {
         }
 
         return true;
+    }
+
+    public static ArrayList<Sheet428PersonalModel> getRecentInstancesPersonal(int days) throws Exception{
+        return Sheet428PersonalDao.getRecentInstances(days);
+    }
+
+    public static ArrayList<Sheet428CoreModel> getRecentInstancesCore(int days) throws Exception{
+        return Sheet428CoreDao.getRecentInstances(days);
     }
 }
