@@ -52,19 +52,26 @@ public class Sheet426CoreDao {
         String sql = "INSERT INTO " + Sheet426Config.getCoreTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + ", " + fieldNames[2] + "," + fieldNames[3]
-                + ", " + fieldNames[4] + "," + fieldNames[5]
-                + ", " + fieldNames[6]
+                + ", " + fieldNames[4]
+                + ", " + fieldNames[5]
+                + ", " + fieldNames[6] + "," + fieldNames[7]
+                + ", " + fieldNames[8] + "," + fieldNames[9]
+                + ", " + fieldNames[10]
                 + ", id) " + "VALUES("
-                + "?,?,?,?,?,?,?,0)";
+                + "?,?,?,?,?,?,?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setInt(1, CoreModel.getErrorInfo2());
-        psmt.setString(2, CoreModel.getLog2());
-        psmt.setTimestamp(3, CoreModel.getDate());
-        psmt.setInt(4, CoreModel.getErrorInfo3());
-        psmt.setString(5, CoreModel.getLog3());
-        psmt.setInt(6, CoreModel.getErrorInfo4());
-        psmt.setString(7, CoreModel.getLog4());
+        psmt.setInt(1, CoreModel.getErrorInfo20());
+        psmt.setString(2, CoreModel.getLog20());
+        psmt.setInt(3, CoreModel.getErrorInfo21());
+        psmt.setString(4, CoreModel.getLog21());
+        psmt.setTimestamp(5, CoreModel.getDate());
+        psmt.setInt(6, CoreModel.getErrorInfo3());
+        psmt.setString(7, CoreModel.getLog3());
+        psmt.setInt(8, CoreModel.getErrorInfo40());
+        psmt.setString(9, CoreModel.getLog40());
+        psmt.setInt(10, CoreModel.getErrorInfo41());
+        psmt.setString(11, CoreModel.getLog41());
 
         psmt.execute();
 
@@ -92,7 +99,7 @@ public class Sheet426CoreDao {
 
         String sql = "SELECT * FROM " + Sheet426Config.getCoreTableName()
                 + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[2] + ")";
+                + " DAY) <= DATE(" + fieldNames[4] + ")";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

@@ -51,14 +51,17 @@ public class Sheet426PersonalDao {
 
         String sql = "INSERT INTO " + Sheet426Config.getPersonalTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
-                + ", " + fieldNames[2]
+                + ", " + fieldNames[2] + "," + fieldNames[3]
+                + "," + fieldNames[4]
                 + ", id) " + "VALUES("
-                + "?,?,?,0)";
+                + "?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setInt(1, personalModel.getErrorInfo2());
-        psmt.setString(2, personalModel.getLog2());
-        psmt.setTimestamp(3, personalModel.getDate());
+        psmt.setInt(1, personalModel.getErrorInfo20());
+        psmt.setString(2, personalModel.getLog20());
+        psmt.setInt(3, personalModel.getErrorInfo21());
+        psmt.setString(4, personalModel.getLog21());
+        psmt.setTimestamp(5, personalModel.getDate());
 
         psmt.execute();
 
@@ -86,7 +89,7 @@ public class Sheet426PersonalDao {
 
         String sql = "SELECT * FROM " + Sheet426Config.getPersonalTableName()
                 + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[2] + ")";
+                + " DAY) <= DATE(" + fieldNames[4] + ")";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

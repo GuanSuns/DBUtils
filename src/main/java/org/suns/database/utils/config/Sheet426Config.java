@@ -9,25 +9,33 @@ public class Sheet426Config {
     private static String personalTableName = "personal426";
     private static String coreTableName = "core426";
 
-    private static String[] fieldNames = {"error2", "log2"
+    private static String[] fieldNames = {"error20", "log20"
+            , "error21", "log21"
             , "inspectionTime"
             , "error3", "log3"
-            , "error4", "log4"
+            , "error40", "log40"
+            , "error41", "log41"
     };
 
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " TINYINT"
             + " , " + fieldNames[1] + " LONGTEXT"
-            + " , " + fieldNames[2] + " DATETIME)";
+            + " , " + fieldNames[2] + " TINYINT"
+            + " , " + fieldNames[3] + " LONGTEXT"
+            + " , " + fieldNames[4] + " DATETIME)";
 
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " TINYINT"
             + " , " + fieldNames[1] + " LONGTEXT"
-            + " , " + fieldNames[2] + " DATETIME"
-            + " , " + fieldNames[3] + " TINYINT"
-            + " , " + fieldNames[4] + " LONGTEXT"
+            + " , " + fieldNames[2] + " TINYINT"
+            + " , " + fieldNames[3] + " LONGTEXT"
+            + " , " + fieldNames[4] + " DATETIME"
             + " , " + fieldNames[5] + " TINYINT"
-            + " , " + fieldNames[6] + " LONGTEXT)";
+            + " , " + fieldNames[6] + " LONGTEXT"
+            + " , " + fieldNames[7] + " TINYINT"
+            + " , " + fieldNames[8] + " LONGTEXT"
+            + " , " + fieldNames[9] + " TINYINT"
+            + " , " + fieldNames[10] + " LONGTEXT)";
 
     public static String getPersonalTableName() {
         return personalTableName;

@@ -14,9 +14,11 @@ public class Sheet426ModelFiller {
         final String[] personalFieldNames = Sheet426Config.getFieldNames();
 
         try{
-            sheet426PersonalModel.setErrorInfo2(resultSet.getInt(personalFieldNames[0]));
-            sheet426PersonalModel.setLog2(resultSet.getString(personalFieldNames[1]));
-            sheet426PersonalModel.setDate(resultSet.getTimestamp(personalFieldNames[2]));
+            sheet426PersonalModel.setErrorInfo20(resultSet.getInt(personalFieldNames[0]));
+            sheet426PersonalModel.setLog20(resultSet.getString(personalFieldNames[1]));
+            sheet426PersonalModel.setErrorInfo21(resultSet.getInt(personalFieldNames[2]));
+            sheet426PersonalModel.setLog21(resultSet.getString(personalFieldNames[3]));
+            sheet426PersonalModel.setDate(resultSet.getTimestamp(personalFieldNames[4]));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -28,10 +30,12 @@ public class Sheet426ModelFiller {
         final String[] fieldNames = Sheet426Config.getFieldNames();
 
         try{
-            sheet426CoreModel.setErrorInfo3(resultSet.getInt(fieldNames[3]));
-            sheet426CoreModel.setLog3(resultSet.getString(fieldNames[4]));
-            sheet426CoreModel.setErrorInfo4(resultSet.getInt(fieldNames[5]));
-            sheet426CoreModel.setLog4(resultSet.getString(fieldNames[6]));
+            sheet426CoreModel.setErrorInfo3(resultSet.getInt(fieldNames[5]));
+            sheet426CoreModel.setLog3(resultSet.getString(fieldNames[6]));
+            sheet426CoreModel.setErrorInfo40(resultSet.getInt(fieldNames[7]));
+            sheet426CoreModel.setLog40(resultSet.getString(fieldNames[8]));
+            sheet426CoreModel.setErrorInfo41(resultSet.getInt(fieldNames[9]));
+            sheet426CoreModel.setLog41(resultSet.getString(fieldNames[10]));
         }catch (Exception e){
             e.printStackTrace();
         }

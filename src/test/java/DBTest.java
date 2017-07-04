@@ -21,11 +21,9 @@ public class DBTest {
         date = calendar.getTime();
         Timestamp currentTime = new Timestamp(date.getTime());
         //Sheet424PersonalModel sheet411PersonalModel = new Sheet424PersonalModel(currentTime,currentTime, "test String");
-        Sheet426CoreModel sheet426CoreModel = new Sheet426CoreModel(currentTime
-                , 0, "Test Log 2", 1, "Test Log3"
-                , 0, "Test Log 4");
+
         try{
-            Sheet426CoreDao.addInstance(sheet426CoreModel);
+
             /*
             ArrayList<Sheet411PersonalModel> models = Sheet411PersonalDao.getRecentInstances(2);
             for(Sheet411PersonalModel model : models){
