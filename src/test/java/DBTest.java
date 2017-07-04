@@ -1,10 +1,6 @@
 import org.junit.Test;
-import org.suns.database.utils.dao.Sheet411CoreDao;
-import org.suns.database.utils.dao.Sheet422CoreDao;
-import org.suns.database.utils.dao.Sheet424PersonalDao;
-import org.suns.database.utils.model.Sheet411CoreModel;
-import org.suns.database.utils.model.Sheet422CoreModel;
-import org.suns.database.utils.model.Sheet424PersonalModel;
+import org.suns.database.utils.dao.*;
+import org.suns.database.utils.model.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,9 +20,12 @@ public class DBTest {
         calendar.add(calendar.DATE, -2);
         date = calendar.getTime();
         Timestamp currentTime = new Timestamp(date.getTime());
-        Sheet424PersonalModel sheet411PersonalModel = new Sheet424PersonalModel(currentTime,currentTime, "test String");
+        //Sheet424PersonalModel sheet411PersonalModel = new Sheet424PersonalModel(currentTime,currentTime, "test String");
+        Sheet426CoreModel sheet426CoreModel = new Sheet426CoreModel(currentTime
+                , 0, "Test Log 2", 1, "Test Log3"
+                , 0, "Test Log 4");
         try{
-            Sheet424PersonalDao.addInstance(sheet411PersonalModel);
+            Sheet426CoreDao.addInstance(sheet426CoreModel);
             /*
             ArrayList<Sheet411PersonalModel> models = Sheet411PersonalDao.getRecentInstances(2);
             for(Sheet411PersonalModel model : models){
