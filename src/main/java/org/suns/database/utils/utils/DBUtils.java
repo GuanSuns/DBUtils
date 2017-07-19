@@ -1,9 +1,12 @@
 package org.suns.database.utils.utils;
 
 import org.suns.database.utils.config.DBConfig;
+import org.suns.database.utils.config.DBType;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 /**
  * Created by guanl on 6/28/2017.
@@ -12,9 +15,18 @@ public class DBUtils {
     private static Connection connection = null;
 
     private static void initConnection() throws Exception{
-        Class.forName(DBConfig.getDriver());
-        connection = DriverManager.getConnection(DBConfig.getUrl()
-                , DBConfig.getName(), DBConfig.getPassword());
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            Class.forName(DBConfig.getDriver());
+            connection = DriverManager.getConnection(DBConfig.getUrl()
+                    , DBConfig.getName(), DBConfig.getPassword());
+        }else if(DBConfig.getDbType().equals(DBType.oracle)){
+            Driver driver = (Driver)Class.forName(DBConfig.getDriver()).newInstance();
+            Properties props = new Properties();
+            props.put("user", DBConfig.getName());
+            props.put("password", DBConfig.getPassword());
+            connection = driver.connect(DBConfig.getUrl(), props);
+        }
+
     }
 
     public static Connection getConnection() throws Exception{

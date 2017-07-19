@@ -4,8 +4,8 @@ package org.suns.database.utils.config;
  * Created by guanl on 6/29/2017.
  */
 public class Sheet421Config {
-    private static String personalTableName = "personal421";
-    private static String coreTableName = "core421";
+    private static String personalTableName = "PERSONAL421";
+    private static String coreTableName = "CORE421";
 
     private static String[] fieldNames = {"usage2", "u01Usage2", "goldUsage2"
             , "usage3", "u01Usage3"
@@ -15,6 +15,22 @@ public class Sheet421Config {
     };
 
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " DATETIME)";
+
+    private static String oraclePersonalTableDefinition = "(id NUMBER(38) NOT NULL PRIMARY KEY"
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " DATE)";
+
+    private static String mysqlPersonalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " NUMERIC(38,2)"
             + " , " + fieldNames[1] + " NUMERIC(38,2)"
             + " , " + fieldNames[2] + " NUMERIC(38,2)"
@@ -35,6 +51,78 @@ public class Sheet421Config {
             + " , " + fieldNames[9] + " NUMERIC(38,2)"
             + " , " + fieldNames[10] + " NUMERIC(38,2))";
 
+    private static String oracleCoreTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " DATE"
+            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[7] + " NUMERIC(38,2)"
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " NUMERIC(38,2)"
+            + " , " + fieldNames[10] + " NUMERIC(38,2))";
+
+    private static String mysqlCoreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
+            + " , " + fieldNames[0] + " NUMERIC(38,2)"
+            + " , " + fieldNames[1] + " NUMERIC(38,2)"
+            + " , " + fieldNames[2] + " NUMERIC(38,2)"
+            + " , " + fieldNames[3] + " NUMERIC(38,2)"
+            + " , " + fieldNames[4] + " NUMERIC(38,2)"
+            + " , " + fieldNames[5] + " DATETIME"
+            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[7] + " NUMERIC(38,2)"
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " NUMERIC(38,2)"
+            + " , " + fieldNames[10] + " NUMERIC(38,2))";
+
+    private static String coreSeqName = "CORE421SEQ";
+    private static String personalSeqName = "PERSONAL421SEQ";
+    private static String coreTriggerName = "CORE421TRIGGER";
+    private static String personalTriggerName = "PERSONAL421TRIGGER";
+
+    public static void setConfigToMySQL(){
+        coreTableDefinition = mysqlCoreTableDefinition;
+        personalTableDefinition = mysqlPersonalTableDefinition;
+    }
+
+    public static void setConfigToOracle(){
+        coreTableDefinition = oracleCoreTableDefinition;
+        personalTableDefinition = oraclePersonalTableDefinition;
+    }
+
+    public static String getCoreSeqName() {
+        return coreSeqName;
+    }
+
+    public static void setCoreSeqName(String coreSeqName) {
+        Sheet421Config.coreSeqName = coreSeqName;
+    }
+
+    public static String getPersonalSeqName() {
+        return personalSeqName;
+    }
+
+    public static void setPersonalSeqName(String personalSeqName) {
+        Sheet421Config.personalSeqName = personalSeqName;
+    }
+
+    public static String getCoreTriggerName() {
+        return coreTriggerName;
+    }
+
+    public static void setCoreTriggerName(String coreTriggerName) {
+        Sheet421Config.coreTriggerName = coreTriggerName;
+    }
+
+    public static String getPersonalTriggerName() {
+        return personalTriggerName;
+    }
+
+    public static void setPersonalTriggerName(String personalTriggerName) {
+        Sheet421Config.personalTriggerName = personalTriggerName;
+    }
 
     public static String getPersonalTableName() {
         return personalTableName;
