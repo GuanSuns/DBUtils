@@ -1,8 +1,12 @@
 package org.suns.database.utils.dao;
 
+import org.suns.database.utils.config.DBConfig;
+import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet424Config;
 import org.suns.database.utils.model.Sheet424CoreModel;
 import org.suns.database.utils.utils.DBUtils;
+import org.suns.database.utils.utils.MySQLUtils;
+import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet424ModelFiller;
 
 import java.sql.*;
@@ -13,18 +17,32 @@ import java.util.ArrayList;
  */
 public class Sheet424CoreDao {
     private static boolean tableExisted = false;
+    private static boolean sequenceAndTriggerExisted = false;
 
     private static boolean checkTableExist(Connection connection) throws Exception{
-        DatabaseMetaData meta = connection.getMetaData();
-        ResultSet resultSet = meta.getTables(null, null
-                , Sheet424Config.getCoreTableName(), null);
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            return MySQLUtils.checkTableExisted(connection
+                    , Sheet424Config.getCoreTableName());
+        }else{
+            return OracleUtils.checkTableExisted(connection
+                    , Sheet424Config.getCoreTableName());
+        }
+    }
 
-        boolean result = false;
-        if(resultSet.next()){
-            result = true;
+    private static void checkSequenceAndTriggerExisted(Connection connection
+            , boolean resetSeq) throws Exception{
+        if(!OracleUtils.checkSeqExisted(connection, Sheet424Config.getCoreSeqName())){
+            OracleUtils.createSeq(connection, Sheet424Config.getCoreSeqName());
+        }else if(resetSeq){
+            OracleUtils.dropSeq(connection, Sheet424Config.getCoreSeqName());
+            OracleUtils.createSeq(connection, Sheet424Config.getCoreSeqName());
         }
 
-        return result;
+        OracleUtils.createOrReplaceTrigger(connection
+                , Sheet424Config.getCoreTriggerName()
+                , Sheet424Config.getCoreTableName()
+                , Sheet424Config.getCoreSeqName()
+                , "id");
     }
 
     private static void createTable(Connection connection) throws Exception{
@@ -39,12 +57,18 @@ public class Sheet424CoreDao {
         }
 
         Connection connection = DBUtils.getConnection();
+        boolean dropSeqFlag = false;
 
         if(!tableExisted){
             if(!checkTableExist(connection)){
                 createTable(connection);
+                dropSeqFlag = true;
             }
             tableExisted = true;
+        }
+        if(!sequenceAndTriggerExisted){
+            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
+            sequenceAndTriggerExisted = true;
         }
 
         String[] fieldNames = Sheet424Config.getFieldNames();
@@ -90,9 +114,16 @@ public class Sheet424CoreDao {
 
         final String[] fieldNames = Sheet424Config.getFieldNames();
 
-        String sql = "SELECT * FROM " + Sheet424Config.getCoreTableName()
-                + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[2] + ")";
+        String sql;
+
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            sql = "SELECT * FROM " + Sheet424Config.getCoreTableName()
+                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
+                    + " DAY) <= DATE(" + fieldNames[2] + ")";
+        }else{
+            sql = "SELECT * FROM " + Sheet424Config.getCoreTableName()
+                    + " WHERE " + fieldNames[2] + ">SYSDATE-" + days;
+        }
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

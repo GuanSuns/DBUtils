@@ -1,8 +1,12 @@
 package org.suns.database.utils.dao;
 
+import org.suns.database.utils.config.DBConfig;
+import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet426Config;
 import org.suns.database.utils.model.Sheet426PersonalModel;
 import org.suns.database.utils.utils.DBUtils;
+import org.suns.database.utils.utils.MySQLUtils;
+import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet426ModelFiller;
 
 import java.sql.*;
@@ -13,18 +17,16 @@ import java.util.ArrayList;
  */
 public class Sheet426PersonalDao {
     private static boolean tableExisted = false;
+    private static boolean sequenceAndTriggerExisted = false;
 
     private static boolean checkTableExist(Connection connection) throws Exception{
-        DatabaseMetaData meta = connection.getMetaData();
-        ResultSet resultSet = meta.getTables(null, null
-                , Sheet426Config.getPersonalTableName(), null);
-
-        boolean result = false;
-        if(resultSet.next()){
-            result = true;
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            return MySQLUtils.checkTableExisted(connection
+                    , Sheet426Config.getPersonalTableName());
+        }else{
+            return OracleUtils.checkTableExisted(connection
+                    , Sheet426Config.getPersonalTableName());
         }
-
-        return result;
     }
 
     private static void createTable(Connection connection) throws Exception{
@@ -33,18 +35,40 @@ public class Sheet426PersonalDao {
         statement.executeUpdate(sql);
     }
 
+    private static void checkSequenceAndTriggerExisted(Connection connection
+            , boolean resetSeq) throws Exception{
+        if(!OracleUtils.checkSeqExisted(connection, Sheet426Config.getPersonalSeqName())){
+            OracleUtils.createSeq(connection, Sheet426Config.getPersonalSeqName());
+        }else if(resetSeq){
+            OracleUtils.dropSeq(connection, Sheet426Config.getPersonalSeqName());
+            OracleUtils.createSeq(connection, Sheet426Config.getPersonalSeqName());
+        }
+
+        OracleUtils.createOrReplaceTrigger(connection
+                , Sheet426Config.getPersonalTriggerName()
+                , Sheet426Config.getPersonalTableName()
+                , Sheet426Config.getPersonalSeqName()
+                , "id");
+    }
+
     public static void addInstance(Sheet426PersonalModel personalModel) throws Exception{
         if(personalModel == null){
             throw new Exception("Uninitialized Sheet 426 Personal Model");
         }
 
         Connection connection = DBUtils.getConnection();
+        boolean dropSeqFlag = false;
 
         if(!tableExisted){
             if(!checkTableExist(connection)){
                 createTable(connection);
+                dropSeqFlag = true;
             }
             tableExisted = true;
+        }
+        if(!sequenceAndTriggerExisted){
+            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
+            sequenceAndTriggerExisted = true;
         }
 
         String[] fieldNames = Sheet426Config.getFieldNames();
@@ -87,9 +111,16 @@ public class Sheet426PersonalDao {
 
         final String[] fieldNames = Sheet426Config.getFieldNames();
 
-        String sql = "SELECT * FROM " + Sheet426Config.getPersonalTableName()
-                + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[4] + ")";
+        String sql;
+
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            sql = "SELECT * FROM " + Sheet426Config.getPersonalTableName()
+                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
+                    + " DAY) <= DATE(" + fieldNames[4] + ")";
+        }else{
+            sql = "SELECT * FROM " + Sheet426Config.getPersonalTableName()
+                    + " WHERE " + fieldNames[2] + ">SYSDATE-" + days;
+        }
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);

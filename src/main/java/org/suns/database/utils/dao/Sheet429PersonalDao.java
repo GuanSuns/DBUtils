@@ -1,8 +1,12 @@
 package org.suns.database.utils.dao;
 
+import org.suns.database.utils.config.DBConfig;
+import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet429Config;
 import org.suns.database.utils.model.Sheet429PersonalModel;
 import org.suns.database.utils.utils.DBUtils;
+import org.suns.database.utils.utils.MySQLUtils;
+import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet429ModelFiller;
 
 import java.sql.*;
@@ -13,18 +17,32 @@ import java.util.ArrayList;
  */
 public class Sheet429PersonalDao {
     private static boolean tableExisted = false;
+    private static boolean sequenceAndTriggerExisted = false;
 
     private static boolean checkTableExist(Connection connection) throws Exception{
-        DatabaseMetaData meta = connection.getMetaData();
-        ResultSet resultSet = meta.getTables(null, null
-                , Sheet429Config.getPersonalTableName(), null);
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            return MySQLUtils.checkTableExisted(connection
+                    , Sheet429Config.getPersonalTableName());
+        }else{
+            return OracleUtils.checkTableExisted(connection
+                    , Sheet429Config.getPersonalTableName());
+        }
+    }
 
-        boolean result = false;
-        if(resultSet.next()){
-            result = true;
+    private static void checkSequenceAndTriggerExisted(Connection connection
+            , boolean resetSeq) throws Exception{
+        if(!OracleUtils.checkSeqExisted(connection, Sheet429Config.getPersonalSeqName())){
+            OracleUtils.createSeq(connection, Sheet429Config.getPersonalSeqName());
+        }else if(resetSeq){
+            OracleUtils.dropSeq(connection, Sheet429Config.getPersonalSeqName());
+            OracleUtils.createSeq(connection, Sheet429Config.getPersonalSeqName());
         }
 
-        return result;
+        OracleUtils.createOrReplaceTrigger(connection
+                , Sheet429Config.getPersonalTriggerName()
+                , Sheet429Config.getPersonalTableName()
+                , Sheet429Config.getPersonalSeqName()
+                , "id");
     }
 
     private static void createTable(Connection connection) throws Exception{
@@ -39,12 +57,18 @@ public class Sheet429PersonalDao {
         }
 
         Connection connection = DBUtils.getConnection();
+        boolean dropSeqFlag = false;
 
         if(!tableExisted){
             if(!checkTableExist(connection)){
                 createTable(connection);
+                dropSeqFlag = true;
             }
             tableExisted = true;
+        }
+        if(!sequenceAndTriggerExisted){
+            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
+            sequenceAndTriggerExisted = true;
         }
 
         String[] fieldNames = Sheet429Config.getFieldNames();
@@ -82,10 +106,16 @@ public class Sheet429PersonalDao {
 
         final String[] fieldNames = Sheet429Config.getFieldNames();
 
-        String sql = "SELECT * FROM " + Sheet429Config.getPersonalTableName()
-                + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                + " DAY) <= DATE(" + fieldNames[1] + ")";
+        String sql;
 
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            sql = "SELECT * FROM " + Sheet429Config.getPersonalTableName()
+                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
+                    + " DAY) <= DATE(" + fieldNames[1] + ")";
+        }else{
+            sql = "SELECT * FROM " + Sheet429Config.getPersonalTableName()
+                    + " WHERE " + fieldNames[1] + ">SYSDATE-" + days;
+        }
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);
 

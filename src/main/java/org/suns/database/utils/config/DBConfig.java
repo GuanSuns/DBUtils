@@ -14,15 +14,27 @@ public class DBConfig {
     private static int defaultNumericNullValue = -1;
 
     public static void setConfigToOracle(){
+        dbType = DBType.oracle;
         Sheet411Config.setConfigToOracle();
         Sheet421Config.setConfigToOracle();
         Sheet422Config.setConfigToOracle();
+        Sheet423Config.setConfigToOracle();
+        Sheet424Config.setConfigToOracle();
+        Sheet426Config.setConfigToOracle();
+        Sheet428Config.setConfigToOracle();
+        Sheet429Config.setConfigToOracle();
     }
 
     public static void setConfigToMySQL(){
+        dbType = DBType.mySQL;
         Sheet411Config.setConfigToMySQL();
         Sheet421Config.setConfigToMySQL();
-        Sheet421Config.setConfigToMySQL();
+        Sheet422Config.setConfigToMySQL();
+        Sheet423Config.setConfigToMySQL();
+        Sheet424Config.setConfigToMySQL();
+        Sheet426Config.setConfigToMySQL();
+        Sheet428Config.setConfigToMySQL();
+        Sheet429Config.setConfigToMySQL();
     }
 
     public static void setDefaultNumericNullValue(int defaultNumericNullValue) {

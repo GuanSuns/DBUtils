@@ -6,8 +6,8 @@ package org.suns.database.utils.config;
 
 public class Sheet426Config {
 
-    private static String personalTableName = "personal426";
-    private static String coreTableName = "core426";
+    private static String personalTableName = "PERSONAL426";
+    private static String coreTableName = "CORE426";
 
     private static String[] fieldNames = {"error20", "log20"
             , "error21", "log21"
@@ -24,6 +24,20 @@ public class Sheet426Config {
             + " , " + fieldNames[3] + " LONGTEXT"
             + " , " + fieldNames[4] + " DATETIME)";
 
+    private static String mysqlPersonalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
+            + " , " + fieldNames[0] + " TINYINT"
+            + " , " + fieldNames[1] + " LONGTEXT"
+            + " , " + fieldNames[2] + " TINYINT"
+            + " , " + fieldNames[3] + " LONGTEXT"
+            + " , " + fieldNames[4] + " DATETIME)";
+
+    private static String oraclePersonalTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
+            + " , " + fieldNames[0] + " NUMBER"
+            + " , " + fieldNames[1] + " LONG"
+            + " , " + fieldNames[2] + " NUMBER"
+            + " , " + fieldNames[3] + " LONG"
+            + " , " + fieldNames[4] + " DATE)";
+
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " TINYINT"
             + " , " + fieldNames[1] + " LONGTEXT"
@@ -36,6 +50,79 @@ public class Sheet426Config {
             + " , " + fieldNames[8] + " LONGTEXT"
             + " , " + fieldNames[9] + " TINYINT"
             + " , " + fieldNames[10] + " LONGTEXT)";
+
+    private static String mysqlCoreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
+            + " , " + fieldNames[0] + " TINYINT"
+            + " , " + fieldNames[1] + " LONGTEXT"
+            + " , " + fieldNames[2] + " TINYINT"
+            + " , " + fieldNames[3] + " LONGTEXT"
+            + " , " + fieldNames[4] + " DATETIME"
+            + " , " + fieldNames[5] + " TINYINT"
+            + " , " + fieldNames[6] + " LONGTEXT"
+            + " , " + fieldNames[7] + " TINYINT"
+            + " , " + fieldNames[8] + " LONGTEXT"
+            + " , " + fieldNames[9] + " TINYINT"
+            + " , " + fieldNames[10] + " LONGTEXT)";
+
+    private static String oracleCoreTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
+            + " , " + fieldNames[0] + " NUMBER"
+            + " , " + fieldNames[1] + " LONG"
+            + " , " + fieldNames[2] + " NUMBER"
+            + " , " + fieldNames[3] + " LONG"
+            + " , " + fieldNames[4] + " DATE"
+            + " , " + fieldNames[5] + " NUMBER"
+            + " , " + fieldNames[6] + " LONG"
+            + " , " + fieldNames[7] + " NUMBER"
+            + " , " + fieldNames[8] + " LONG"
+            + " , " + fieldNames[9] + " NUMBER"
+            + " , " + fieldNames[10] + " LONG)";
+
+    private static String coreSeqName = "CORE426SEQ";
+    private static String personalSeqName = "PERSONAL426SEQ";
+    private static String coreTriggerName = "CORE426TRIGGER";
+    private static String personalTriggerName = "PERSONAL426TRIGGER";
+
+    public static void setConfigToMySQL(){
+        coreTableDefinition = mysqlCoreTableDefinition;
+        personalTableDefinition = mysqlPersonalTableDefinition;
+    }
+
+    public static void setConfigToOracle(){
+        coreTableDefinition = oracleCoreTableDefinition;
+        personalTableDefinition = oraclePersonalTableDefinition;
+    }
+
+    public static String getCoreSeqName() {
+        return coreSeqName;
+    }
+
+    public static void setCoreSeqName(String coreSeqName) {
+        Sheet426Config.coreSeqName = coreSeqName;
+    }
+
+    public static String getPersonalSeqName() {
+        return personalSeqName;
+    }
+
+    public static void setPersonalSeqName(String personalSeqName) {
+        Sheet426Config.personalSeqName = personalSeqName;
+    }
+
+    public static String getCoreTriggerName() {
+        return coreTriggerName;
+    }
+
+    public static void setCoreTriggerName(String coreTriggerName) {
+        Sheet426Config.coreTriggerName = coreTriggerName;
+    }
+
+    public static String getPersonalTriggerName() {
+        return personalTriggerName;
+    }
+
+    public static void setPersonalTriggerName(String personalTriggerName) {
+        Sheet426Config.personalTriggerName = personalTriggerName;
+    }
 
     public static String getPersonalTableName() {
         return personalTableName;
