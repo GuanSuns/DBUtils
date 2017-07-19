@@ -68,4 +68,15 @@ public class Sheet426PersonalModel {
     public void setLog21(String log21) {
         this.log21 = log21;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet426PersonalModel{" +
+                "date=" + date +
+                ", errorInfo20=" + errorInfo20 +
+                ", log20='" + log20 +
+                ", errorInfo21=" + errorInfo21 +
+                ", log21='" + log21 +
+                '}';
+    }
 }

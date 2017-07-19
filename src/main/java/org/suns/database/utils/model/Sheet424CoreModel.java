@@ -62,4 +62,14 @@ public class Sheet424CoreModel extends Sheet424PersonalModel{
     public void setStatus4(String status4) {
         this.status4 = status4;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet424CoreModel{" +
+                "inspectTime3=" + inspectTime3 +
+                ", status3='" + status3 +
+                ", inspectTime4=" + inspectTime4 +
+                ", status4='" + status4 +
+                '}';
+    }
 }

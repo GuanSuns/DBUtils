@@ -119,7 +119,7 @@ public class Sheet426PersonalDao {
                     + " DAY) <= DATE(" + fieldNames[4] + ")";
         }else{
             sql = "SELECT * FROM " + Sheet426Config.getPersonalTableName()
-                    + " WHERE " + fieldNames[2] + ">SYSDATE-" + days;
+                    + " WHERE " + fieldNames[4] + ">SYSDATE-" + days;
         }
 
         Statement stmt = connection.createStatement();

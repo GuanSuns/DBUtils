@@ -84,4 +84,21 @@ public class Sheet426CoreModel extends Sheet426PersonalModel {
     public void setLog41(String log41) {
         this.log41 = log41;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet426CoreModel{" +
+                "errorInfo3=" + errorInfo3 +
+                ", log3='" + log3 +
+                ", errorInfo40=" + errorInfo40 +
+                ", log40='" + log40 +
+                ", errorInfo41=" + errorInfo41 +
+                ", log41='" + log41 +
+                ", date=" + date +
+                ", errorInfo20=" + errorInfo20 +
+                ", log20='" + log20 +
+                ", errorInfo21=" + errorInfo21 +
+                ", log21='" + log21 +
+                '}';
+    }
 }

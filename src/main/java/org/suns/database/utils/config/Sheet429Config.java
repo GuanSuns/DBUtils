@@ -21,7 +21,7 @@ public class Sheet429Config {
             + " , " + fieldNames[1] + " DATETIME)";
 
     private static String oraclePersonalTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
-            + " , " + fieldNames[0] + " LONG"
+            + " , " + fieldNames[0] + " NVARCHAR2(2000)"
             + " , " + fieldNames[1] + " DATE)";
 
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
@@ -37,10 +37,10 @@ public class Sheet429Config {
             + " , " + fieldNames[3] + " LONGTEXT)";
 
     private static String oracleCoreTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
-            + " , " + fieldNames[0] + " LONG"
+            + " , " + fieldNames[0] + " NVARCHAR2(2000)"
             + " , " + fieldNames[1] + " DATE"
-            + " , " + fieldNames[2] + " LONG"
-            + " , " + fieldNames[3] + " LONG)";
+            + " , " + fieldNames[2] + " NVARCHAR2(2000)"
+            + " , " + fieldNames[3] + " NVARCHAR2(2000))";
 
     private static String coreSeqName = "CORE429SEQ";
     private static String personalSeqName = "PERSONAL429SEQ";

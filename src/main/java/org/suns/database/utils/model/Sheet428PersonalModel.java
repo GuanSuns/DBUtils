@@ -66,4 +66,15 @@ public class Sheet428PersonalModel {
     public void setStatus4(String status4) {
         this.status4 = status4;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet428PersonalModel{" +
+                "date=" + date +
+                ", status1='" + status1 +
+                ", status2='" + status2 +
+                ", status3='" + status3 +
+                ", status4='" + status4 +
+                '}';
+    }
 }

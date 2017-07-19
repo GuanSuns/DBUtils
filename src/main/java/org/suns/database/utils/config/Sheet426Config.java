@@ -33,9 +33,9 @@ public class Sheet426Config {
 
     private static String oraclePersonalTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
             + " , " + fieldNames[0] + " NUMBER"
-            + " , " + fieldNames[1] + " LONG"
+            + " , " + fieldNames[1] + " NVARCHAR2(2000)"
             + " , " + fieldNames[2] + " NUMBER"
-            + " , " + fieldNames[3] + " LONG"
+            + " , " + fieldNames[3] + " NVARCHAR2(2000)"
             + " , " + fieldNames[4] + " DATE)";
 
     private static String coreTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
@@ -66,16 +66,16 @@ public class Sheet426Config {
 
     private static String oracleCoreTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
             + " , " + fieldNames[0] + " NUMBER"
-            + " , " + fieldNames[1] + " LONG"
+            + " , " + fieldNames[1] + " NVARCHAR2(2000)"
             + " , " + fieldNames[2] + " NUMBER"
-            + " , " + fieldNames[3] + " LONG"
+            + " , " + fieldNames[3] + " NVARCHAR2(2000)"
             + " , " + fieldNames[4] + " DATE"
             + " , " + fieldNames[5] + " NUMBER"
-            + " , " + fieldNames[6] + " LONG"
+            + " , " + fieldNames[6] + " NVARCHAR2(2000)"
             + " , " + fieldNames[7] + " NUMBER"
-            + " , " + fieldNames[8] + " LONG"
+            + " , " + fieldNames[8] + " NVARCHAR2(2000)"
             + " , " + fieldNames[9] + " NUMBER"
-            + " , " + fieldNames[10] + " LONG)";
+            + " , " + fieldNames[10] + " NVARCHAR2(2000))";
 
     private static String coreSeqName = "CORE426SEQ";
     private static String personalSeqName = "PERSONAL426SEQ";

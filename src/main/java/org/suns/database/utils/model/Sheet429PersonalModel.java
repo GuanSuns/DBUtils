@@ -14,6 +14,11 @@ public class Sheet429PersonalModel {
         heartBeat1 = "";
     }
 
+    public Sheet429PersonalModel(Timestamp inspectTime, String heartBeat1) {
+        this.inspectTime = inspectTime;
+        this.heartBeat1 = heartBeat1;
+    }
+
     public Timestamp getInspectTime() {
         return inspectTime;
     }
@@ -28,5 +33,13 @@ public class Sheet429PersonalModel {
 
     public void setHeartBeat1(String heartBeat1) {
         this.heartBeat1 = heartBeat1;
+    }
+
+    @Override
+    public String toString() {
+        return "Sheet429PersonalModel{" +
+                "inspectTime=" + inspectTime +
+                ", heartBeat1='" + heartBeat1 +
+                '}';
     }
 }

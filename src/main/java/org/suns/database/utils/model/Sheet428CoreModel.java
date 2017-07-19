@@ -28,4 +28,11 @@ public class Sheet428CoreModel extends Sheet428PersonalModel{
     public void setStatus5(String status5) {
         this.status5 = status5;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet428CoreModel{" +
+                "status5='" + status5 +
+                "} " + super.toString();
+    }
 }

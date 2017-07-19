@@ -47,4 +47,13 @@ public class Sheet424PersonalModel {
     public void setStatus2(String status2) {
         this.status2 = status2;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet424PersonalModel{" +
+                "date=" + date +
+                ", inspectTime2=" + inspectTime2 +
+                ", status2='" + status2 +
+                '}';
+    }
 }

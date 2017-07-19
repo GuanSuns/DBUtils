@@ -1,8 +1,5 @@
 import org.junit.Test;
-import org.suns.database.utils.config.DBConfig;
-import org.suns.database.utils.config.Sheet411Config;
-import org.suns.database.utils.config.Sheet421Config;
-import org.suns.database.utils.config.Sheet422Config;
+import org.suns.database.utils.config.*;
 import org.suns.database.utils.dao.*;
 import org.suns.database.utils.model.*;
 
@@ -171,6 +168,275 @@ public class DBTest {
             ArrayList<Sheet422PersonalModel> models = Sheet422PersonalDao
                     .getRecentInstances(2);
             for(Sheet422PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet423Personal(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet423PersonalModel sheet423PersonalModel = new Sheet423PersonalModel(currentTime
+                , "test 1", 2, 12, 0.212f);
+        try{
+            Sheet423Config.setConfigToOracle();
+            Sheet423PersonalDao.addInstance(sheet423PersonalModel);
+
+            ArrayList<Sheet423PersonalModel> models = Sheet423PersonalDao
+                    .getRecentInstances(2);
+            for(Sheet423PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet423Core(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet423CoreModel sheet423CoreModel = new Sheet423CoreModel(currentTime
+                , "test 1", 2, 12
+                , 0.212f, "test 1", 2
+                , 12, 0.212f, "test 1"
+                , 2, 12, 0.212f);
+        try{
+            Sheet423Config.setConfigToOracle();
+            Sheet423CoreDao.addInstance(sheet423CoreModel);
+
+            ArrayList<Sheet423CoreModel> models = Sheet423CoreDao
+                    .getRecentInstances(2);
+            for(Sheet423CoreModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet424Core(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet424CoreModel sheet424CoreModel = new Sheet424CoreModel(currentTime
+                , currentTime, "test 1"
+                , currentTime, "test 1"
+                , currentTime, "test 1");
+        try{
+            Sheet424Config.setConfigToOracle();
+            Sheet424CoreDao.addInstance(sheet424CoreModel);
+
+            ArrayList<Sheet424CoreModel> models = Sheet424CoreDao
+                    .getRecentInstances(2);
+            for(Sheet424CoreModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet424Personal(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet424PersonalModel sheet424PersonalModel = new Sheet424PersonalModel(currentTime
+                , currentTime, "test 1");
+        try{
+            Sheet424Config.setConfigToOracle();
+            Sheet424PersonalDao.addInstance(sheet424PersonalModel);
+
+            ArrayList<Sheet424PersonalModel> models = Sheet424PersonalDao
+                    .getRecentInstances(2);
+            for(Sheet424PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet426Personal(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet426PersonalModel sheet426PersonalModel = new Sheet426PersonalModel(currentTime
+                , 1, "Error Info 1"
+                , 1, "Error Info 2");
+        try{
+            Sheet426Config.setConfigToOracle();
+            Sheet426PersonalDao.addInstance(sheet426PersonalModel);
+
+            ArrayList<Sheet426PersonalModel> models = Sheet426PersonalDao
+                    .getRecentInstances(2);
+            for(Sheet426PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet426Core(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet426CoreModel sheet426CoreModel = new Sheet426CoreModel(currentTime
+                , 1, "Error Info 1"
+                , 1, "Error Info 2"
+                , 0, "Error Info 3"
+                , 1, "Error Info 4"
+                , 0, "Error Info 5");
+        try{
+            Sheet426Config.setConfigToOracle();
+            Sheet426CoreDao.addInstance(sheet426CoreModel);
+
+            ArrayList<Sheet426CoreModel> models = Sheet426CoreDao
+                    .getRecentInstances(2);
+            for(Sheet426CoreModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    //@Test
+    public void test_sheet428Core(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet428CoreModel sheet428CoreModel = new Sheet428CoreModel(currentTime
+                , "Error Info 1"
+                , "Error Info 2"
+                , "Error Info 3"
+                , "Error Info 4"
+                , "Error Info 5");
+        try{
+            Sheet428Config.setConfigToOracle();
+            Sheet428CoreDao.addInstance(sheet428CoreModel);
+
+            ArrayList<Sheet428CoreModel> models = Sheet428CoreDao
+                    .getRecentInstances(2);
+            for(Sheet428CoreModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet428Personal(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet428PersonalModel sheet428PersonalModel = new Sheet428PersonalModel(currentTime
+                , "Error Info 1"
+                , "Error Info 2"
+                , "Error Info 3"
+                , "Error Info 4");
+        try{
+            Sheet428Config.setConfigToOracle();
+            Sheet428PersonalDao.addInstance(sheet428PersonalModel);
+
+            ArrayList<Sheet428PersonalModel> models = Sheet428PersonalDao
+                    .getRecentInstances(2);
+            for(Sheet428PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet429Personal(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet429PersonalModel sheet429PersonalModel = new Sheet429PersonalModel(currentTime
+                , "Error Info 1");
+        try{
+            Sheet429Config.setConfigToOracle();
+            Sheet429PersonalDao.addInstance(sheet429PersonalModel);
+
+            ArrayList<Sheet429PersonalModel> models = Sheet429PersonalDao
+                    .getRecentInstances(2);
+            for(Sheet429PersonalModel model : models){
+                System.out.println(model.toString());
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void test_sheet429Core(){
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        date = calendar.getTime();
+        Timestamp currentTime = new Timestamp(date.getTime());
+        Sheet429CoreModel sheet429CoreModel = new Sheet429CoreModel(currentTime
+                , "Error Info 1"
+                , "Error Info 2"
+                , "Error Info 3");
+        try{
+            Sheet429Config.setConfigToOracle();
+            Sheet429CoreDao.addInstance(sheet429CoreModel);
+
+            ArrayList<Sheet429CoreModel> models = Sheet429CoreDao
+                    .getRecentInstances(2);
+            for(Sheet429CoreModel model : models){
                 System.out.println(model.toString());
             }
 
