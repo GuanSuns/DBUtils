@@ -98,7 +98,8 @@ public class Sheet421CoreDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet421CoreModel> getRecentInstances(int days) throws Exception{
+    public static ArrayList<Sheet421CoreModel> getRecentInstances(int days)
+            throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
@@ -122,10 +123,12 @@ public class Sheet421CoreDao {
         if(DBConfig.getDbType().equals(DBType.mySQL)){
             sql = "SELECT * FROM " + Sheet421Config.getCoreTableName()
                     + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[5] + ")";
+                    + " DAY) <= DATE(" + fieldNames[5] + ")"
+                    + " ORDER BY ID ASC";
         }else{
             sql = "SELECT * FROM " + Sheet421Config.getCoreTableName()
-                    + " WHERE " + fieldNames[5] + ">SYSDATE-" + days;
+                    + " WHERE " + fieldNames[5] + ">SYSDATE-" + days
+                    + " ORDER BY ID ASC";
         }
 
         Statement stmt = connection.createStatement();

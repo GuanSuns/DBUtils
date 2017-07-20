@@ -127,10 +127,12 @@ public class Sheet411CoreDao {
         if(DBConfig.getDbType().equals(DBType.mySQL)){
             sql = "SELECT * FROM " + Sheet411Config.getCoreTableName()
                     + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[12] + ")";
+                    + " DAY) <= DATE(" + fieldNames[12] + ")"
+                    + " ORDER BY ID ASC";
         }else{
             sql = "SELECT * FROM " + Sheet411Config.getCoreTableName()
-                    + " WHERE " + fieldNames[12] + ">SYSDATE-" + days;
+                    + " WHERE " + fieldNames[12] + ">SYSDATE-" + days
+                    + " ORDER BY ID ASC";
         }
 
         Statement stmt = connection.createStatement();
