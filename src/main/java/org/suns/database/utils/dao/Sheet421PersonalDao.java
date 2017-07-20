@@ -66,7 +66,7 @@ public class Sheet421PersonalDao {
             }
             tableExisted = true;
         }
-        if(!sequenceAndTriggerExisted){
+        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
             checkSequenceAndTriggerExisted(connection, dropSeqFlag);
             sequenceAndTriggerExisted = true;
         }

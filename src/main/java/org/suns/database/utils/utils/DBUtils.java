@@ -15,18 +15,9 @@ public class DBUtils {
     private static Connection connection = null;
 
     private static void initConnection() throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            Class.forName(DBConfig.getDriver());
-            connection = DriverManager.getConnection(DBConfig.getUrl()
-                    , DBConfig.getName(), DBConfig.getPassword());
-        }else if(DBConfig.getDbType().equals(DBType.oracle)){
-            Driver driver = (Driver)Class.forName(DBConfig.getDriver()).newInstance();
-            Properties props = new Properties();
-            props.put("user", DBConfig.getName());
-            props.put("password", DBConfig.getPassword());
-            connection = driver.connect(DBConfig.getUrl(), props);
-        }
-
+        Class.forName(DBConfig.getDriver());
+        connection = DriverManager.getConnection(DBConfig.getUrl()
+                , DBConfig.getName(), DBConfig.getPassword());
     }
 
     public static Connection getConnection() throws Exception{

@@ -64,7 +64,7 @@ public class Sheet421CoreDao {
             }
             tableExisted = true;
         }
-        if(!sequenceAndTriggerExisted){
+        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
             checkSequenceAndTriggerExisted(connection, dropSeqFlag);
             sequenceAndTriggerExisted = true;
         }
