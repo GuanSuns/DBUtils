@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
  * Created by guanl on 6/28/2017.
  */
 public class DBTest {
-    //@Test
+    @Test
     public void test_sheet411Personal(){
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
