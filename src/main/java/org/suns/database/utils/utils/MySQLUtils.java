@@ -21,4 +21,9 @@ public class MySQLUtils {
 
         return result;
     }
+
+    public void abortRecentInstances(int minutes, String tableName
+            , String timeFiledName) throws Exception{
+
+    }
 }

@@ -1,12 +1,13 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="DBUtils:jar">
+  <artifact name="DBUtils:jar">
     <output-path>$PROJECT_DIR$/../Jar Source Library/HostsInspection/DBUtils</output-path>
-    <root id="archive" name="DBUtils.jar">
-      <element id="module-output" name="DBUtils" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar" path-in-jar="/" />
-      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.6" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/oracle/ojdbc7/12.1.0.2/ojdbc7-12.1.0.2.jar" path-in-jar="/" />
-      <element id="library" level="project" name="Maven: com.oracle:ojdbc7:12.1.0.2" />
+    <root id="root">
+      <element id="archive" name="DBUtils.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="DBUtils" />
+      </element>
     </root>
   </artifact>
 </component>

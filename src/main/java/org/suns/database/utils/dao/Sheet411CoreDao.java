@@ -9,17 +9,39 @@ import org.suns.database.utils.utils.MySQLUtils;
 import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet411ModelFiller;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by guanl on 6/28/2017.
  */
-public class Sheet411CoreDao {
+public class Sheet411CoreDao extends AbstractSheetDao{
     private static boolean tableExisted = false;
     private static boolean sequenceAndTriggerExisted = false;
 
-    private static boolean checkTableExist(Connection connection) throws Exception{
+    @Override
+    public void setTableExist(boolean isExist) {
+        tableExisted = isExist;
+    }
+
+    @Override
+    public void setSequenceAndTriggerExisted(boolean isExist) {
+        sequenceAndTriggerExisted = isExist;
+    }
+
+    @Override
+    public boolean isTableExist() {
+        return tableExisted;
+    }
+
+    @Override
+    public boolean isSequenceAndTriggerExisted() {
+        return sequenceAndTriggerExisted;
+    }
+
+    @Override
+    public boolean checkTableExist(Connection connection) throws Exception{
         if(DBConfig.getDbType().equals(DBType.mySQL)){
             return MySQLUtils.checkTableExisted(connection, Sheet411Config.getCoreTableName());
         }else{
@@ -27,13 +49,15 @@ public class Sheet411CoreDao {
         }
     }
 
-    private static void createTable(Connection connection) throws Exception{
+    @Override
+    public void createTable(Connection connection) throws Exception{
         Statement statement = connection.createStatement();
         String sql = Sheet411Config.getCoreTableDefinition();
         statement.executeUpdate(sql);
     }
 
-    private static void checkSequenceAndTriggerExisted(Connection connection
+    @Override
+    public void checkSequenceAndTriggerExisted(Connection connection
             , boolean resetSeq) throws Exception{
         if(!OracleUtils.checkSeqExisted(connection, Sheet411Config.getCoreSeqName())){
             OracleUtils.createSeq(connection, Sheet411Config.getCoreSeqName());
@@ -49,25 +73,13 @@ public class Sheet411CoreDao {
                 , "id");
     }
 
-    public static void addInstance(Sheet411CoreModel coreModel) throws Exception{
+    public void addInstance(Sheet411CoreModel coreModel) throws Exception{
         if(coreModel == null){
             throw new Exception("Uninitialized Sheet 411 Core Model");
         }
 
         Connection connection = DBUtils.getConnection();
-        boolean dropSeqFlag = false;
-
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                dropSeqFlag = true;
-            }
-            tableExisted = true;
-        }
-        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
-            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
-            sequenceAndTriggerExisted = true;
-        }
+        preCheck(connection);
 
         String[] fieldNames = Sheet411Config.getFieldNames();
 
@@ -103,40 +115,16 @@ public class Sheet411CoreDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet411CoreModel> getRecentInstances(int days) throws Exception{
+    public ArrayList<Sheet411CoreModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
         Connection connection = DBUtils.getConnection();
-
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                tableExisted = true;
-
-                DBUtils.closeConnection();
-                return null;
-            }
-            tableExisted = true;
-        }
+        preCheck(connection);
 
         String[] fieldNames = Sheet411Config.getFieldNames();
-
-        String sql;
-
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + Sheet411Config.getCoreTableName()
-                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[12] + ")"
-                    + " ORDER BY ID ASC";
-        }else{
-            sql = "SELECT * FROM " + Sheet411Config.getCoreTableName()
-                    + " WHERE " + fieldNames[12] + ">SYSDATE-" + days
-                    + " ORDER BY ID ASC";
-        }
-
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
+        ResultSet resultSet = selectRecentInstances(connection, days
+                , fieldNames[12], Sheet411Config.getCoreTableName());
 
         ArrayList<Sheet411CoreModel> resultModels = new ArrayList<>();
         while(resultSet.next()){
@@ -147,5 +135,19 @@ public class Sheet411CoreDao {
 
         DBUtils.closeConnection();
         return resultModels;
+    }
+
+    public void abortRecentInstances(int minutes) throws Exception{
+        //Invalid argument
+        if(minutes < 0) return;
+
+        Connection connection = DBUtils.getConnection();
+        preCheck(connection);
+
+        String[] fieldNames = Sheet411Config.getFieldNames();
+        deleteRecentInstances(connection, minutes
+                , fieldNames[12], Sheet411Config.getCoreTableName());
+
+        DBUtils.closeConnection();
     }
 }

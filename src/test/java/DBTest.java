@@ -1,5 +1,6 @@
 import org.junit.Test;
 import org.suns.database.utils.config.*;
+import org.suns.database.utils.controller.Sheet411Controller;
 import org.suns.database.utils.dao.*;
 import org.suns.database.utils.model.*;
 
@@ -14,6 +15,12 @@ import java.util.GregorianCalendar;
  */
 public class DBTest {
     @Test
+    public void test_both() {
+        test_sheet411Core();
+        test_sheet411Personal();
+    }
+
+    //@Test
     public void test_sheet411Personal(){
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
@@ -27,11 +34,11 @@ public class DBTest {
                 , 0.6f, 0.7f, 0.08f, 0.09f);
 
         try{
-            Sheet411Config.setConfigToOracle();
-            Sheet411PersonalDao.addInstance(sheet411PersonalModel);
+            DBConfig.setConfigToMySQL();
+            Sheet411Controller.addPersonal(sheet411PersonalModel);
 
-            ArrayList<Sheet411PersonalModel> models = Sheet411PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet411PersonalModel> models = Sheet411Controller
+                    .getRecentInstancesPersonal(2);
             for(Sheet411PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -55,10 +62,10 @@ public class DBTest {
                 , 0.11f, 0.12f, 0.13f, 0.12f
                 , 0.13f);
         try{
-            Sheet411Config.setConfigToOracle();
-            Sheet411CoreDao.addInstance(sheet411CoreModel);
+            DBConfig.setConfigToMySQL();
+            Sheet411Controller.addCore(sheet411CoreModel);
 
-            ArrayList<Sheet411CoreModel> models = Sheet411CoreDao.getRecentInstances(365);
+            ArrayList<Sheet411CoreModel> models = Sheet411Controller.getRecentInstancesCore(365);
             for(Sheet411CoreModel model : models){
                 System.out.println(model.toString());
             }
