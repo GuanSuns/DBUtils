@@ -15,65 +15,71 @@ import java.util.ArrayList;
 /**
  * Created by guanl on 6/30/2017.
  */
-public class Sheet423CoreDao {
+public class Sheet423CoreDao extends AbstractSheetDao{
     private static boolean tableExisted = false;
     private static boolean sequenceAndTriggerExisted = false;
 
-    private static boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection
-                    , Sheet423Config.getCoreTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection
-                    , Sheet423Config.getCoreTableName());
-        }
+    @Override
+    public void setTableExist(boolean isExist) {
+        tableExisted = isExist;
     }
 
-    private static void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet423Config.getCoreTableDefinition();
-        statement.executeUpdate(sql);
+    @Override
+    public void setSequenceAndTriggerExisted(boolean isExist) {
+        sequenceAndTriggerExisted = isExist;
     }
 
-    private static void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet423Config.getCoreSeqName())){
-            OracleUtils.createSeq(connection, Sheet423Config.getCoreSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet423Config.getCoreSeqName());
-            OracleUtils.createSeq(connection, Sheet423Config.getCoreSeqName());
-        }
-
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet423Config.getCoreTriggerName()
-                , Sheet423Config.getCoreTableName()
-                , Sheet423Config.getCoreSeqName()
-                , "id");
+    @Override
+    public boolean isTableExist() {
+        return tableExisted;
     }
 
-    public static void addInstance(Sheet423CoreModel CoreModel) throws Exception{
+    @Override
+    public boolean isSequenceAndTriggerExisted() {
+        return sequenceAndTriggerExisted;
+    }
+
+    @Override
+    protected String getTableName() {
+        return Sheet423Config.getCoreTableName();
+    }
+
+    @Override
+    protected String getTableDefinition() {
+        return Sheet423Config.getCoreTableDefinition();
+    }
+
+    @Override
+    protected String getSeqName() {
+        return Sheet423Config.getCoreSeqName();
+    }
+
+    @Override
+    protected String getTriggerName() {
+        return Sheet423Config.getCoreTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return Sheet423Config.getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet423Config.getTimeFieldIndex();
+    }
+
+    public void addInstance(Sheet423CoreModel CoreModel) throws Exception{
         if(CoreModel == null){
             throw new Exception("Uninitialized Sheet 423 Core Model");
         }
 
         Connection connection = DBUtils.getConnection();
-        boolean dropSeqFlag = false;
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                dropSeqFlag = true;
-            }
-            tableExisted = true;
-        }
-        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
-            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
-            sequenceAndTriggerExisted = true;
-        }
+        String[] fieldNames = getFieldNames();
 
-        String[] fieldNames = Sheet423Config.getFieldNames();
-
-        String sql = "INSERT INTO " + Sheet423Config.getCoreTableName()
+        String sql = "INSERT INTO " + getTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + "," + fieldNames[2] + "," + fieldNames[3]
                 + "," + fieldNames[4] + "," + fieldNames[5]
@@ -104,40 +110,14 @@ public class Sheet423CoreDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet423CoreModel> getRecentInstances(int days) throws Exception{
+    public ArrayList<Sheet423CoreModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
         Connection connection = DBUtils.getConnection();
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                tableExisted = true;
-
-                DBUtils.closeConnection();
-                return null;
-            }
-            tableExisted = true;
-        }
-
-        final String[] fieldNames = Sheet423Config.getFieldNames();
-
-        String sql;
-
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + Sheet423Config.getCoreTableName()
-                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[4] + ")"
-                    + " ORDER BY ID ASC";
-        }else{
-            sql = "SELECT * FROM " + Sheet423Config.getCoreTableName()
-                    + " WHERE " + fieldNames[4] + ">SYSDATE-" + days
-                    + " ORDER BY ID ASC";
-        }
-
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet423CoreModel> resultModels = new ArrayList<>();
         while(resultSet.next()){

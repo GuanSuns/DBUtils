@@ -12,6 +12,8 @@ public class Sheet424Config {
             , "collectTime4", "status4"
     };
 
+    private static final int timeFieldIndex = 2;
+
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " DATETIME"
             + " , " + fieldNames[1] + " VARCHAR(30)"
@@ -58,6 +60,10 @@ public class Sheet424Config {
     private static String personalSeqName = "PERSONAL424SEQ";
     private static String coreTriggerName = "CORE424TRIGGER";
     private static String personalTriggerName = "PERSONAL424TRIGGER";
+
+    public static int getTimeFieldIndex() {
+        return timeFieldIndex;
+    }
 
     public static void setConfigToMySQL(){
         coreTableDefinition = mysqlCoreTableDefinition;

@@ -12,6 +12,8 @@ public class Sheet429Config {
             , "heartBeat2", "heartBeat3"
     };
 
+    private static final int timeFieldIndex = 1;
+
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " LONGTEXT"
             + " , " + fieldNames[1] + " DATETIME)";
@@ -46,6 +48,10 @@ public class Sheet429Config {
     private static String personalSeqName = "PERSONAL429SEQ";
     private static String coreTriggerName = "CORE429TRIGGER";
     private static String personalTriggerName = "PERSONAL429TRIGGER";
+
+    public static int getTimeFieldIndex() {
+        return timeFieldIndex;
+    }
 
     public static void setConfigToMySQL(){
         coreTableDefinition = mysqlCoreTableDefinition;

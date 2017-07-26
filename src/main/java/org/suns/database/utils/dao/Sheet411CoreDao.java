@@ -41,36 +41,33 @@ public class Sheet411CoreDao extends AbstractSheetDao{
     }
 
     @Override
-    public boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection, Sheet411Config.getCoreTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection, Sheet411Config.getCoreTableName());
-        }
+    protected String getTableName() {
+        return Sheet411Config.getCoreTableName();
     }
 
     @Override
-    public void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet411Config.getCoreTableDefinition();
-        statement.executeUpdate(sql);
+    protected String getTableDefinition() {
+        return Sheet411Config.getCoreTableDefinition();
     }
 
     @Override
-    public void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet411Config.getCoreSeqName())){
-            OracleUtils.createSeq(connection, Sheet411Config.getCoreSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet411Config.getCoreSeqName());
-            OracleUtils.createSeq(connection, Sheet411Config.getCoreSeqName());
-        }
+    protected String getSeqName() {
+        return Sheet411Config.getCoreSeqName();
+    }
 
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet411Config.getCoreTriggerName()
-                , Sheet411Config.getCoreTableName()
-                , Sheet411Config.getCoreSeqName()
-                , "id");
+    @Override
+    protected String getTriggerName() {
+        return Sheet411Config.getCoreTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet411Config.getTimeFieldIndex();
     }
 
     public void addInstance(Sheet411CoreModel coreModel) throws Exception{
@@ -81,9 +78,9 @@ public class Sheet411CoreDao extends AbstractSheetDao{
         Connection connection = DBUtils.getConnection();
         preCheck(connection);
 
-        String[] fieldNames = Sheet411Config.getFieldNames();
+        String[] fieldNames = getFieldNames();
 
-        String sql = "INSERT INTO " + Sheet411Config.getCoreTableName()
+        String sql = "INSERT INTO " + getTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + "," + fieldNames[2] + "," + fieldNames[3]
                 + "," + fieldNames[4] + "," + fieldNames[5]
@@ -122,9 +119,7 @@ public class Sheet411CoreDao extends AbstractSheetDao{
         Connection connection = DBUtils.getConnection();
         preCheck(connection);
 
-        String[] fieldNames = Sheet411Config.getFieldNames();
-        ResultSet resultSet = selectRecentInstances(connection, days
-                , fieldNames[12], Sheet411Config.getCoreTableName());
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet411CoreModel> resultModels = new ArrayList<>();
         while(resultSet.next()){
@@ -135,19 +130,5 @@ public class Sheet411CoreDao extends AbstractSheetDao{
 
         DBUtils.closeConnection();
         return resultModels;
-    }
-
-    public void abortRecentInstances(int minutes) throws Exception{
-        //Invalid argument
-        if(minutes < 0) return;
-
-        Connection connection = DBUtils.getConnection();
-        preCheck(connection);
-
-        String[] fieldNames = Sheet411Config.getFieldNames();
-        deleteRecentInstances(connection, minutes
-                , fieldNames[12], Sheet411Config.getCoreTableName());
-
-        DBUtils.closeConnection();
     }
 }

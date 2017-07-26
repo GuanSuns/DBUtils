@@ -40,38 +40,33 @@ public class Sheet411PersonalDao extends AbstractSheetDao{
     }
 
     @Override
-    public boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection
-                    , Sheet411Config.getPersonalTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection
-                    , Sheet411Config.getPersonalTableName());
-        }
+    protected String getTableName() {
+        return Sheet411Config.getPersonalTableName();
     }
 
     @Override
-    public void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet411Config.getPersonalSeqName())){
-            OracleUtils.createSeq(connection, Sheet411Config.getPersonalSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet411Config.getPersonalSeqName());
-            OracleUtils.createSeq(connection, Sheet411Config.getPersonalSeqName());
-        }
-
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet411Config.getPersonalTriggerName()
-                , Sheet411Config.getPersonalTableName()
-                , Sheet411Config.getPersonalSeqName()
-                , "id");
+    protected String getTableDefinition() {
+        return Sheet411Config.getPersonalTableDefinition();
     }
 
     @Override
-    public void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet411Config.getPersonalTableDefinition();
-        statement.executeUpdate(sql);
+    protected String getSeqName() {
+        return Sheet411Config.getPersonalSeqName();
+    }
+
+    @Override
+    protected String getTriggerName() {
+        return Sheet411Config.getPersonalTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return Sheet411Config.getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet411Config.getTimeFieldIndex();
     }
 
     public void addInstance(Sheet411PersonalModel personalModel) throws Exception{
@@ -82,9 +77,9 @@ public class Sheet411PersonalDao extends AbstractSheetDao{
         Connection connection = DBUtils.getConnection();
         preCheck(connection);
 
-        String[] personalFieldNames = Sheet411Config.getFieldNames();
+        String[] personalFieldNames = getFieldNames();
 
-        String sql = "INSERT INTO " + Sheet411Config.getPersonalTableName()
+        String sql = "INSERT INTO " + getTableName()
                 + " (" + personalFieldNames[0] + "," + personalFieldNames[1]
                 + "," + personalFieldNames[2] + "," + personalFieldNames[3]
                 + "," + personalFieldNames[4] + "," + personalFieldNames[5]
@@ -120,9 +115,7 @@ public class Sheet411PersonalDao extends AbstractSheetDao{
         Connection connection = DBUtils.getConnection();
         preCheck(connection);
 
-        String[] personalFieldNames = Sheet411Config.getFieldNames();
-        ResultSet resultSet = selectRecentInstances(connection, days
-                , personalFieldNames[12], Sheet411Config.getPersonalTableName());
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet411PersonalModel> resultModels = new ArrayList<>();
         while(resultSet.next()){
@@ -133,19 +126,5 @@ public class Sheet411PersonalDao extends AbstractSheetDao{
 
         DBUtils.closeConnection();
         return resultModels;
-    }
-
-    public void abortRecentInstances(int minutes) throws Exception{
-        //Invalid argument
-        if(minutes < 0) return;
-
-        Connection connection = DBUtils.getConnection();
-        preCheck(connection);
-
-        String[] fieldNames = Sheet411Config.getFieldNames();
-        deleteRecentInstances(connection, minutes
-                , fieldNames[12], Sheet411Config.getPersonalTableName());
-
-        DBUtils.closeConnection();
     }
 }

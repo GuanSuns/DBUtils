@@ -2,6 +2,7 @@ package org.suns.database.utils.dao;
 
 import org.suns.database.utils.config.DBConfig;
 import org.suns.database.utils.config.DBType;
+import org.suns.database.utils.config.Sheet421Config;
 import org.suns.database.utils.config.Sheet422Config;
 import org.suns.database.utils.model.Sheet422CoreModel;
 import org.suns.database.utils.utils.DBUtils;
@@ -15,65 +16,71 @@ import java.util.ArrayList;
 /**
  * Created by guanl on 6/29/2017.
  */
-public class Sheet422CoreDao {
+public class Sheet422CoreDao extends AbstractSheetDao{
     private static boolean tableExisted = false;
     private static boolean sequenceAndTriggerExisted = false;
 
-    private static boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection
-                    , Sheet422Config.getCoreTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection
-                    , Sheet422Config.getCoreTableName());
-        }
+    @Override
+    public void setTableExist(boolean isExist) {
+        tableExisted = isExist;
     }
 
-    private static void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet422Config.getCoreTableDefinition();
-        statement.executeUpdate(sql);
+    @Override
+    public void setSequenceAndTriggerExisted(boolean isExist) {
+        sequenceAndTriggerExisted = isExist;
     }
 
-    private static void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet422Config.getCoreSeqName())){
-            OracleUtils.createSeq(connection, Sheet422Config.getCoreSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet422Config.getCoreSeqName());
-            OracleUtils.createSeq(connection, Sheet422Config.getCoreSeqName());
-        }
-
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet422Config.getCoreTriggerName()
-                , Sheet422Config.getCoreTableName()
-                , Sheet422Config.getCoreSeqName()
-                , "id");
+    @Override
+    public boolean isTableExist() {
+        return tableExisted;
     }
 
-    public static void addInstance(Sheet422CoreModel CoreModel) throws Exception{
+    @Override
+    public boolean isSequenceAndTriggerExisted() {
+        return sequenceAndTriggerExisted;
+    }
+
+    @Override
+    protected String getTableName() {
+        return Sheet422Config.getCoreTableName();
+    }
+
+    @Override
+    protected String getTableDefinition() {
+        return Sheet422Config.getCoreTableDefinition();
+    }
+
+    @Override
+    protected String getSeqName() {
+        return Sheet422Config.getCoreSeqName();
+    }
+
+    @Override
+    protected String getTriggerName() {
+        return Sheet422Config.getCoreTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return Sheet422Config.getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet422Config.getTimeFieldIndex();
+    }
+
+    public void addInstance(Sheet422CoreModel CoreModel) throws Exception{
         if(CoreModel == null){
             throw new Exception("Uninitialized Sheet 422 Core Model");
         }
 
         Connection connection = DBUtils.getConnection();
-        boolean dropSeqFlag = false;
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                dropSeqFlag = true;
-            }
-            tableExisted = true;
-        }
-        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
-            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
-            sequenceAndTriggerExisted = true;
-        }
+        String[] fieldNames = getFieldNames();
 
-        String[] fieldNames = Sheet422Config.getFieldNames();
-
-        String sql = "INSERT INTO " + Sheet422Config.getCoreTableName()
+        String sql = "INSERT INTO " + getTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + "," + fieldNames[2] + "," + fieldNames[3]
                 + "," + fieldNames[4]
@@ -103,40 +110,14 @@ public class Sheet422CoreDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet422CoreModel> getRecentInstances(int days) throws Exception{
+    public ArrayList<Sheet422CoreModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
         Connection connection = DBUtils.getConnection();
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                tableExisted = true;
-
-                DBUtils.closeConnection();
-                return null;
-            }
-            tableExisted = true;
-        }
-
-        final String[] fieldNames = Sheet422Config.getFieldNames();
-
-        String sql;
-
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + Sheet422Config.getCoreTableName()
-                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[4] + ")"
-                    + " ORDER BY ID ASC";
-        }else{
-            sql = "SELECT * FROM " + Sheet422Config.getCoreTableName()
-                    + " WHERE " + fieldNames[4] + ">SYSDATE-" + days
-                    + " ORDER BY ID ASC";
-        }
-
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet422CoreModel> resultModels = new ArrayList<>();
         while(resultSet.next()){

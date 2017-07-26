@@ -15,61 +15,67 @@ import java.util.ArrayList;
 /**
  * Created by guanl on 6/30/2017.
  */
-public class Sheet429PersonalDao {
+public class Sheet429PersonalDao extends AbstractSheetDao{
     private static boolean tableExisted = false;
     private static boolean sequenceAndTriggerExisted = false;
 
-    private static boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection
-                    , Sheet429Config.getPersonalTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection
-                    , Sheet429Config.getPersonalTableName());
-        }
+    @Override
+    public void setTableExist(boolean isExist) {
+        tableExisted = isExist;
     }
 
-    private static void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet429Config.getPersonalSeqName())){
-            OracleUtils.createSeq(connection, Sheet429Config.getPersonalSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet429Config.getPersonalSeqName());
-            OracleUtils.createSeq(connection, Sheet429Config.getPersonalSeqName());
-        }
-
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet429Config.getPersonalTriggerName()
-                , Sheet429Config.getPersonalTableName()
-                , Sheet429Config.getPersonalSeqName()
-                , "id");
+    @Override
+    public void setSequenceAndTriggerExisted(boolean isExist) {
+        sequenceAndTriggerExisted = isExist;
     }
 
-    private static void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet429Config.getPersonalTableDefinition();
-        statement.executeUpdate(sql);
+    @Override
+    public boolean isTableExist() {
+        return tableExisted;
     }
 
-    public static void addInstance(Sheet429PersonalModel personalModel) throws Exception{
+    @Override
+    public boolean isSequenceAndTriggerExisted() {
+        return sequenceAndTriggerExisted;
+    }
+
+    @Override
+    protected String getTableName() {
+        return Sheet429Config.getPersonalTableName();
+    }
+
+    @Override
+    protected String getTableDefinition() {
+        return Sheet429Config.getPersonalTableDefinition();
+    }
+
+    @Override
+    protected String getSeqName() {
+        return Sheet429Config.getPersonalSeqName();
+    }
+
+    @Override
+    protected String getTriggerName() {
+        return Sheet429Config.getPersonalTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return Sheet429Config.getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet429Config.getTimeFieldIndex();
+    }
+
+    public void addInstance(Sheet429PersonalModel personalModel) throws Exception{
         if(personalModel == null){
             throw new Exception("Uninitialized Sheet 429 Personal Model");
         }
 
         Connection connection = DBUtils.getConnection();
-        boolean dropSeqFlag = false;
-
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                dropSeqFlag = true;
-            }
-            tableExisted = true;
-        }
-        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
-            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
-            sequenceAndTriggerExisted = true;
-        }
+        preCheck(connection);
 
         String[] fieldNames = Sheet429Config.getFieldNames();
 
@@ -87,39 +93,14 @@ public class Sheet429PersonalDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet429PersonalModel> getRecentInstances(int days) throws Exception{
+    public ArrayList<Sheet429PersonalModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
         Connection connection = DBUtils.getConnection();
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                tableExisted = true;
-
-                DBUtils.closeConnection();
-                return null;
-            }
-            tableExisted = true;
-        }
-
-        final String[] fieldNames = Sheet429Config.getFieldNames();
-
-        String sql;
-
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + Sheet429Config.getPersonalTableName()
-                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[1] + ")"
-                    + " ORDER BY ID ASC";
-        }else{
-            sql = "SELECT * FROM " + Sheet429Config.getPersonalTableName()
-                    + " WHERE " + fieldNames[1] + ">SYSDATE-" + days
-                    + " ORDER BY ID ASC";
-        }
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet429PersonalModel> resultModels = new ArrayList<>();
         while(resultSet.next()){

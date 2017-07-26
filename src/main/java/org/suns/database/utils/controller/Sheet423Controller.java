@@ -11,41 +11,61 @@ import java.util.ArrayList;
  * Created by guanl on 6/30/2017.
  */
 public class Sheet423Controller {
-    public static boolean addPersonal(Sheet423PersonalModel sheet423PersonalModel){
+    private static Sheet423CoreDao sheet423CoreDao;
+    private static Sheet423PersonalDao sheet423PersonalDao;
+    private static boolean isInitialized = false;
+
+    private static void preCheck(){
+        if(!isInitialized){
+            init();
+            isInitialized = true;
+        }
+    }
+
+    private static void init(){
+        sheet423CoreDao = new Sheet423CoreDao();
+        sheet423PersonalDao = new Sheet423PersonalDao();
+    }
+
+    public static boolean addPersonal(Sheet423PersonalModel sheet423PersonalModel)
+            throws Exception{
+
         if(sheet423PersonalModel == null){
             return false;
         }
 
-        try{
-            Sheet423PersonalDao.addInstance(sheet423PersonalModel);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-
+        preCheck();
+        sheet423PersonalDao.addInstance(sheet423PersonalModel);
         return true;
     }
 
-    public static boolean addCore(Sheet423CoreModel sheet423CoreModel){
+    public static boolean addCore(Sheet423CoreModel sheet423CoreModel) throws Exception{
         if(sheet423CoreModel == null){
             return false;
         }
 
-        try{
-            Sheet423CoreDao.addInstance(sheet423CoreModel);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-
+        preCheck();
+        sheet423CoreDao.addInstance(sheet423CoreModel);
         return true;
     }
 
     public static ArrayList<Sheet423PersonalModel> getRecentInstancesPersonal(int days) throws Exception{
-        return Sheet423PersonalDao.getRecentInstances(days);
+        preCheck();
+        return sheet423PersonalDao.getRecentInstances(days);
     }
 
     public static ArrayList<Sheet423CoreModel> getRecentInstancesCore(int days) throws Exception{
-        return Sheet423CoreDao.getRecentInstances(days);
+        preCheck();
+        return sheet423CoreDao.getRecentInstances(days);
+    }
+
+    public static void abortRecentPersonal(int minutes) throws Exception{
+        preCheck();
+        sheet423PersonalDao.abortRecentInstances(minutes);
+    }
+
+    public static void abortRecentCore(int minutes) throws Exception{
+        preCheck();
+        sheet423CoreDao.abortRecentInstances(minutes);
     }
 }

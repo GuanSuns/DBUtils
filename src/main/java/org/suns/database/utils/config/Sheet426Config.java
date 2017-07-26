@@ -17,6 +17,8 @@ public class Sheet426Config {
             , "error41", "log41"
     };
 
+    private static final int timeFieldIndex = 4;
+
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " TINYINT"
             + " , " + fieldNames[1] + " LONGTEXT"
@@ -81,6 +83,10 @@ public class Sheet426Config {
     private static String personalSeqName = "PERSONAL426SEQ";
     private static String coreTriggerName = "CORE426TRIGGER";
     private static String personalTriggerName = "PERSONAL426TRIGGER";
+
+    public static int getTimeFieldIndex() {
+        return timeFieldIndex;
+    }
 
     public static void setConfigToMySQL(){
         coreTableDefinition = mysqlCoreTableDefinition;

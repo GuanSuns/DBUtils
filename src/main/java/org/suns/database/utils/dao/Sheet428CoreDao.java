@@ -15,65 +15,72 @@ import java.util.ArrayList;
 /**
  * Created by guanl on 6/30/2017.
  */
-public class Sheet428CoreDao {
+public class Sheet428CoreDao extends AbstractSheetDao{
     private static boolean tableExisted = false;
     private static boolean sequenceAndTriggerExisted = false;
 
-    private static boolean checkTableExist(Connection connection) throws Exception{
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            return MySQLUtils.checkTableExisted(connection
-                    , Sheet428Config.getCoreTableName());
-        }else{
-            return OracleUtils.checkTableExisted(connection
-                    , Sheet428Config.getCoreTableName());
-        }
+    @Override
+    public void setTableExist(boolean isExist) {
+        tableExisted = isExist;
     }
 
-    private static void createTable(Connection connection) throws Exception{
-        Statement statement = connection.createStatement();
-        String sql = Sheet428Config.getCoreTableDefinition();
-        statement.executeUpdate(sql);
+    @Override
+    public void setSequenceAndTriggerExisted(boolean isExist) {
+        sequenceAndTriggerExisted = isExist;
     }
 
-    private static void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception{
-        if(!OracleUtils.checkSeqExisted(connection, Sheet428Config.getCoreSeqName())){
-            OracleUtils.createSeq(connection, Sheet428Config.getCoreSeqName());
-        }else if(resetSeq){
-            OracleUtils.dropSeq(connection, Sheet428Config.getCoreSeqName());
-            OracleUtils.createSeq(connection, Sheet428Config.getCoreSeqName());
-        }
-
-        OracleUtils.createOrReplaceTrigger(connection
-                , Sheet428Config.getCoreTriggerName()
-                , Sheet428Config.getCoreTableName()
-                , Sheet428Config.getCoreSeqName()
-                , "id");
+    @Override
+    public boolean isTableExist() {
+        return tableExisted;
     }
 
-    public static void addInstance(Sheet428CoreModel CoreModel) throws Exception{
+    @Override
+    public boolean isSequenceAndTriggerExisted() {
+        return sequenceAndTriggerExisted;
+    }
+
+    @Override
+    protected String getTableName() {
+        return Sheet428Config.getCoreTableName();
+    }
+
+    @Override
+    protected String getTableDefinition() {
+        return Sheet428Config.getCoreTableDefinition();
+    }
+
+    @Override
+    protected String getSeqName() {
+        return Sheet428Config.getCoreSeqName();
+    }
+
+    @Override
+    protected String getTriggerName() {
+        return Sheet428Config.getCoreTriggerName();
+    }
+
+    @Override
+    protected String[] getFieldNames() {
+        return Sheet428Config.getFieldNames();
+    }
+
+    @Override
+    protected int getTimeFieldIndex() {
+        return Sheet428Config.getTimeFieldIndex();
+    }
+
+
+    public void addInstance(Sheet428CoreModel CoreModel) throws Exception{
         if(CoreModel == null){
             throw new Exception("Uninitialized Sheet 428 Core Model");
         }
 
         Connection connection = DBUtils.getConnection();
-        boolean dropSeqFlag = false;
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                dropSeqFlag = true;
-            }
-            tableExisted = true;
-        }
-        if(!sequenceAndTriggerExisted && DBConfig.getDbType().equals(DBType.oracle)){
-            checkSequenceAndTriggerExisted(connection, dropSeqFlag);
-            sequenceAndTriggerExisted = true;
-        }
+        String[] fieldNames = getFieldNames();
 
-        String[] fieldNames = Sheet428Config.getFieldNames();
-
-        String sql = "INSERT INTO " + Sheet428Config.getCoreTableName()
+        String sql = "INSERT INTO " + getTableName()
                 + " (" + fieldNames[0] + "," + fieldNames[1]
                 + ", " + fieldNames[2] + "," + fieldNames[3]
                 + ", " + fieldNames[4]
@@ -94,40 +101,14 @@ public class Sheet428CoreDao {
         DBUtils.closeConnection();
     }
 
-    public static ArrayList<Sheet428CoreModel> getRecentInstances(int days) throws Exception{
+    public ArrayList<Sheet428CoreModel> getRecentInstances(int days) throws Exception{
         //Invalid argument
         if(days < 0) return null;
 
         Connection connection = DBUtils.getConnection();
+        preCheck(connection);
 
-        if(!tableExisted){
-            if(!checkTableExist(connection)){
-                createTable(connection);
-                tableExisted = true;
-
-                DBUtils.closeConnection();
-                return null;
-            }
-            tableExisted = true;
-        }
-
-        final String[] fieldNames = Sheet428Config.getFieldNames();
-
-        String sql;
-
-        if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + Sheet428Config.getCoreTableName()
-                    + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + fieldNames[4] + ")"
-                    + " ORDER BY ID ASC";
-        }else{
-            sql = "SELECT * FROM " + Sheet428Config.getCoreTableName()
-                    + " WHERE " + fieldNames[4] + ">SYSDATE-" + days
-                    + " ORDER BY ID ASC";
-        }
-
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
+        ResultSet resultSet = selectRecentInstances(connection, days);
 
         ArrayList<Sheet428CoreModel> resultModels = new ArrayList<>();
         while(resultSet.next()){

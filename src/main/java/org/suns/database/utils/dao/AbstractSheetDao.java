@@ -2,6 +2,10 @@ package org.suns.database.utils.dao;
 
 import org.suns.database.utils.config.DBConfig;
 import org.suns.database.utils.config.DBType;
+import org.suns.database.utils.config.Sheet411Config;
+import org.suns.database.utils.utils.DBUtils;
+import org.suns.database.utils.utils.MySQLUtils;
+import org.suns.database.utils.utils.OracleUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,14 +13,61 @@ import java.sql.Statement;
 
 public abstract class AbstractSheetDao {
 
-    protected abstract boolean checkTableExist(Connection connection) throws Exception;
-    protected abstract void createTable(Connection connection) throws Exception;
+    protected abstract String getTableName();
+    protected abstract String getTableDefinition();
     protected abstract void setTableExist(boolean isExist);
     protected abstract void setSequenceAndTriggerExisted(boolean isExist);
     protected abstract boolean isTableExist();
     protected abstract boolean isSequenceAndTriggerExisted();
-    protected abstract void checkSequenceAndTriggerExisted(Connection connection
-            , boolean resetSeq) throws Exception;
+    protected abstract String getSeqName();
+    protected abstract String getTriggerName();
+    protected abstract String[] getFieldNames();
+    protected abstract int getTimeFieldIndex();
+
+    public void abortRecentInstances(int minutes) throws Exception{
+        //Invalid argument
+        if(minutes < 0) return;
+
+        Connection connection = DBUtils.getConnection();
+        preCheck(connection);
+
+        String[] fieldNames = getFieldNames();
+        deleteRecentInstances(connection, minutes
+                , fieldNames[getTimeFieldIndex()], getTableName());
+
+        DBUtils.closeConnection();
+    }
+
+
+    void checkSequenceAndTriggerExisted(Connection connection
+            , boolean resetSeq) throws Exception{
+        if(!OracleUtils.checkSeqExisted(connection, getSeqName())){
+            OracleUtils.createSeq(connection, getSeqName());
+        }else if(resetSeq){
+            OracleUtils.dropSeq(connection, getSeqName());
+            OracleUtils.createSeq(connection, getSeqName());
+        }
+
+        OracleUtils.createOrReplaceTrigger(connection
+                , getTriggerName()
+                , getTableName()
+                , getSeqName()
+                , "id");
+    }
+
+    void createTable(Connection connection) throws Exception{
+        Statement statement = connection.createStatement();
+        String sql = getTableDefinition();
+        statement.executeUpdate(sql);
+    }
+
+    boolean checkTableExist(Connection connection) throws Exception{
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            return MySQLUtils.checkTableExisted(connection, getTableName());
+        }else{
+            return OracleUtils.checkTableExisted(connection, getTableName());
+        }
+    }
 
     void preCheck(Connection connection) throws Exception{
         if(connection == null){
@@ -39,17 +90,18 @@ public abstract class AbstractSheetDao {
     }
 
     ResultSet selectRecentInstances(Connection connection
-            , int days, String timeFiled, String tableName) throws Exception{
+            , int days) throws Exception{
         String sql;
 
         if(DBConfig.getDbType().equals(DBType.mySQL)){
-            sql = "SELECT * FROM " + tableName
+            sql = "SELECT * FROM " + getTableName()
                     + " WHERE DATE_SUB(CURDATE(), INTERVAL " + days
-                    + " DAY) <= DATE(" + timeFiled + ")"
+                    + " DAY) <= DATE(" + getFieldNames()[getTimeFieldIndex()] + ")"
                     + " ORDER BY ID ASC";
         }else{
-            sql = "SELECT * FROM " + tableName
-                    + " WHERE " + timeFiled + ">SYSDATE-" + days
+            sql = "SELECT * FROM " + getTableName()
+                    + " WHERE " + getFieldNames()[getTimeFieldIndex()]
+                    + ">SYSDATE-" + days
                     + " ORDER BY ID ASC";
         }
 

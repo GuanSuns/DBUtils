@@ -13,6 +13,8 @@ public class Sheet422Config {
             , "tsName4", "totalSpace4", "usedSpace4", "usage4"
     };
 
+    private static final int timeFieldIndex = 4;
+
     private static String personalTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " VARCHAR(30)"
             + " , " + fieldNames[1] + " NUMERIC(38,2)"
@@ -83,6 +85,10 @@ public class Sheet422Config {
     private static String personalSeqName = "PERSONAL422SEQ";
     private static String coreTriggerName = "CORE422TRIGGER";
     private static String personalTriggerName = "PERSONAL422TRIGGER";
+
+    public static int getTimeFieldIndex() {
+        return timeFieldIndex;
+    }
 
     public static void setConfigToMySQL(){
         coreTableDefinition = mysqlCoreTableDefinition;
