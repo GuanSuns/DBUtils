@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by guanl on 6/28/2017.
  */
-public class Sheet411CoreModel extends Sheet411PersonalModel {
+public class Sheet411CoreModel extends Sheet411PersonalModel{
     private Float usage8;
     private Float weblogicUsage8;
 

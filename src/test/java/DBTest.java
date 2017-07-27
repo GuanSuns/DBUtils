@@ -1,6 +1,6 @@
 import org.junit.Test;
 import org.suns.database.utils.config.*;
-import org.suns.database.utils.controller.Sheet411Controller;
+import org.suns.database.utils.controller.*;
 import org.suns.database.utils.dao.*;
 import org.suns.database.utils.model.*;
 
@@ -90,10 +90,9 @@ public class DBTest {
 
         try{
             Sheet421Config.setConfigToOracle();
-            Sheet421PersonalDao.addInstance(sheet421PersonalModel);
+            Sheet421Controller.addPersonal(sheet421PersonalModel);
 
-            ArrayList<Sheet421PersonalModel> models = Sheet421PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet421PersonalModel> models = Sheet421Controller.getRecentInstancesPersonal(2);
             for(Sheet421PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -119,10 +118,10 @@ public class DBTest {
 
         try{
             Sheet421Config.setConfigToOracle();
-            Sheet421CoreDao.addInstance(sheet421CoreModel);
+            Sheet421Controller.addCore(sheet421CoreModel);
 
-            ArrayList<Sheet421CoreModel> models = Sheet421CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet421CoreModel> models = Sheet421Controller
+                    .getRecentInstancesCore(2);
             for(Sheet421CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -145,10 +144,9 @@ public class DBTest {
                 , "test 3", 2.3324f, 12.23f, 0.212f);
         try{
             Sheet422Config.setConfigToOracle();
-            Sheet422CoreDao.addInstance(sheet422CoreModel);
+            Sheet422Controller.addCore(sheet422CoreModel);
 
-            ArrayList<Sheet422CoreModel> models = Sheet422CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet422CoreModel> models = Sheet422Controller.getRecentInstancesCore(2);
             for(Sheet422CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -170,10 +168,9 @@ public class DBTest {
                 , "test 3", 2.3324f, 12.23f, 0.212f);
         try{
             Sheet422Config.setConfigToOracle();
-            Sheet422PersonalDao.addInstance(sheet422PersonalModel);
+            Sheet422Controller.addPersonal(sheet422PersonalModel);
 
-            ArrayList<Sheet422PersonalModel> models = Sheet422PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet422PersonalModel> models = Sheet422Controller.getRecentInstancesPersonal(2);
             for(Sheet422PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -195,10 +192,10 @@ public class DBTest {
                 , "test 1", 2, 12, 0.212f);
         try{
             Sheet423Config.setConfigToOracle();
-            Sheet423PersonalDao.addInstance(sheet423PersonalModel);
+            Sheet423Controller.addPersonal(sheet423PersonalModel);
 
-            ArrayList<Sheet423PersonalModel> models = Sheet423PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet423PersonalModel> models = Sheet423Controller
+                    .getRecentInstancesPersonal(2);
             for(Sheet423PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -223,10 +220,9 @@ public class DBTest {
                 , 2, 12, 0.212f);
         try{
             Sheet423Config.setConfigToOracle();
-            Sheet423CoreDao.addInstance(sheet423CoreModel);
+            Sheet423Controller.addCore(sheet423CoreModel);
 
-            ArrayList<Sheet423CoreModel> models = Sheet423CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet423CoreModel> models = Sheet423Controller.getRecentInstancesCore(2);
             for(Sheet423CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -250,10 +246,9 @@ public class DBTest {
                 , currentTime, "test 1");
         try{
             Sheet424Config.setConfigToOracle();
-            Sheet424CoreDao.addInstance(sheet424CoreModel);
+            Sheet424Controller.addCore(sheet424CoreModel);
 
-            ArrayList<Sheet424CoreModel> models = Sheet424CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet424CoreModel> models = Sheet424Controller.getRecentInstancesCore(2);
             for(Sheet424CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -275,10 +270,10 @@ public class DBTest {
                 , currentTime, "test 1");
         try{
             Sheet424Config.setConfigToOracle();
-            Sheet424PersonalDao.addInstance(sheet424PersonalModel);
+            Sheet424Controller.addPersonal(sheet424PersonalModel);
 
-            ArrayList<Sheet424PersonalModel> models = Sheet424PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet424PersonalModel> models = Sheet424Controller
+                    .getRecentInstancesPersonal(2);
             for(Sheet424PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -301,10 +296,10 @@ public class DBTest {
                 , 1, "Error Info 2");
         try{
             Sheet426Config.setConfigToOracle();
-            Sheet426PersonalDao.addInstance(sheet426PersonalModel);
+            Sheet426Controller.addPersonal(sheet426PersonalModel);
 
-            ArrayList<Sheet426PersonalModel> models = Sheet426PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet426PersonalModel> models = Sheet426Controller
+                    .getRecentInstancesPersonal(2);
             for(Sheet426PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -330,10 +325,10 @@ public class DBTest {
                 , 0, "Error Info 5");
         try{
             Sheet426Config.setConfigToOracle();
-            Sheet426CoreDao.addInstance(sheet426CoreModel);
+            Sheet426Controller.addCore(sheet426CoreModel);
 
-            ArrayList<Sheet426CoreModel> models = Sheet426CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet426CoreModel> models = Sheet426Controller
+                    .getRecentInstancesCore(2);
             for(Sheet426CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -342,7 +337,7 @@ public class DBTest {
             e.printStackTrace();
         }
     }
-    
+
     //@Test
     public void test_sheet428Core(){
         Date date = new Date();
@@ -359,10 +354,10 @@ public class DBTest {
                 , "Error Info 5");
         try{
             Sheet428Config.setConfigToOracle();
-            Sheet428CoreDao.addInstance(sheet428CoreModel);
+            Sheet428Controller.addCore(sheet428CoreModel);
 
-            ArrayList<Sheet428CoreModel> models = Sheet428CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet428CoreModel> models = Sheet428Controller
+                    .getRecentInstancesCore(2);
             for(Sheet428CoreModel model : models){
                 System.out.println(model.toString());
             }
@@ -387,10 +382,10 @@ public class DBTest {
                 , "Error Info 4");
         try{
             Sheet428Config.setConfigToOracle();
-            Sheet428PersonalDao.addInstance(sheet428PersonalModel);
+            Sheet428Controller.addPersonal(sheet428PersonalModel);
 
-            ArrayList<Sheet428PersonalModel> models = Sheet428PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet428PersonalModel> models = Sheet428Controller
+                    .getRecentInstancesPersonal(2);
             for(Sheet428PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -412,10 +407,10 @@ public class DBTest {
                 , "Error Info 1");
         try{
             Sheet429Config.setConfigToOracle();
-            Sheet429PersonalDao.addInstance(sheet429PersonalModel);
+            Sheet429Controller.addPersonal(sheet429PersonalModel);
 
-            ArrayList<Sheet429PersonalModel> models = Sheet429PersonalDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet429PersonalModel> models = Sheet429Controller.
+                    getRecentInstancesPersonal(2);
             for(Sheet429PersonalModel model : models){
                 System.out.println(model.toString());
             }
@@ -439,10 +434,10 @@ public class DBTest {
                 , "Error Info 3");
         try{
             Sheet429Config.setConfigToOracle();
-            Sheet429CoreDao.addInstance(sheet429CoreModel);
+            Sheet429Controller.addCore(sheet429CoreModel);
 
-            ArrayList<Sheet429CoreModel> models = Sheet429CoreDao
-                    .getRecentInstances(2);
+            ArrayList<Sheet429CoreModel> models = Sheet429Controller
+                    .getRecentInstancesCore(2);
             for(Sheet429CoreModel model : models){
                 System.out.println(model.toString());
             }

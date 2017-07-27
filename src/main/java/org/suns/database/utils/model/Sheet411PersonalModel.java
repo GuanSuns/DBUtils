@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by guanl on 6/28/2017.
  */
-public class Sheet411PersonalModel {
+public class Sheet411PersonalModel extends AbstractDataModel{
     protected Timestamp date;
     protected Float usage2;
     protected Float weblogicUsage2;

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by guanl on 6/30/2017.
  */
-public class Sheet429PersonalModel {
+public class Sheet429PersonalModel extends AbstractDataModel{
     private Timestamp inspectTime;
     private String heartBeat1;
 
