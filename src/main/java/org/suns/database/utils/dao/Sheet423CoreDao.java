@@ -1,12 +1,8 @@
 package org.suns.database.utils.dao;
 
-import org.suns.database.utils.config.DBConfig;
-import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet423Config;
 import org.suns.database.utils.model.Sheet423CoreModel;
 import org.suns.database.utils.utils.DBUtils;
-import org.suns.database.utils.utils.MySQLUtils;
-import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet423ModelFiller;
 
 import java.sql.*;
@@ -91,18 +87,18 @@ public class Sheet423CoreDao extends AbstractSheetDao{
                 + "?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setString(1, CoreModel.getAsmName2());
+        psmt.setString(1, CoreModel.getName2());
         psmt.setFloat(2, CoreModel.getTotalSpace2());
-        psmt.setFloat(3, CoreModel.getRemainSpace2());
+        psmt.setFloat(3, CoreModel.getUsedOrRemainSpace2());
         psmt.setFloat(4, CoreModel.getUsage2());
         psmt.setTimestamp(5, CoreModel.getDate());
-        psmt.setString(6, CoreModel.getAsmName3());
+        psmt.setString(6, CoreModel.getName3());
         psmt.setFloat(7, CoreModel.getTotalSpace3());
-        psmt.setFloat(8, CoreModel.getRemainSpace3());
+        psmt.setFloat(8, CoreModel.getUsedOrRemainSpace3());
         psmt.setFloat(9, CoreModel.getUsage3());
-        psmt.setString(10, CoreModel.getAsmName4());
+        psmt.setString(10, CoreModel.getName4());
         psmt.setFloat(11, CoreModel.getTotalSpace4());
-        psmt.setFloat(12, CoreModel.getRemainSpace4());
+        psmt.setFloat(12, CoreModel.getUsedOrRemainSpace4());
         psmt.setFloat(13, CoreModel.getUsage4());
 
         psmt.execute();

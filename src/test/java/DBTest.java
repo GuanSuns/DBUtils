@@ -189,7 +189,7 @@ public class DBTest {
         date = calendar.getTime();
         Timestamp currentTime = new Timestamp(date.getTime());
         Sheet423PersonalModel sheet423PersonalModel = new Sheet423PersonalModel(currentTime
-                , "test 1", 2, 12, 0.212f);
+                , "test 1", 2f, 12f, 0.212f);
         try{
             Sheet423Config.setConfigToOracle();
             Sheet423Controller.addPersonal(sheet423PersonalModel);
@@ -214,10 +214,10 @@ public class DBTest {
         date = calendar.getTime();
         Timestamp currentTime = new Timestamp(date.getTime());
         Sheet423CoreModel sheet423CoreModel = new Sheet423CoreModel(currentTime
-                , "test 1", 2, 12
-                , 0.212f, "test 1", 2
-                , 12, 0.212f, "test 1"
-                , 2, 12, 0.212f);
+                , "test 1", 2f, 12f
+                , 0.212f, "test 1", 2f
+                , 12f, 0.212f, "test 1"
+                , 2f, 12f, 0.212f);
         try{
             Sheet423Config.setConfigToOracle();
             Sheet423Controller.addCore(sheet423CoreModel);

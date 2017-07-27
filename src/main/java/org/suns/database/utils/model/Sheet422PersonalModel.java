@@ -5,29 +5,29 @@ import java.sql.Timestamp;
 /**
  * Created by guanl on 6/29/2017.
  */
-public class Sheet422PersonalModel extends AbstractDataModel{
+public class Sheet422PersonalModel extends AbstractUsageModel{
     protected Timestamp date;
 
-    protected String tsName2;
-    protected Float tsTotalSpace2;
-    protected Float tsUsedSpace2;
-    protected Float tsUsage2;
+    protected String name2;
+    protected Float totalSpace2;
+    protected Float usedSpace2;
+    protected Float usage2;
 
     public Sheet422PersonalModel() {
         this.date = null;
-        this.tsName2 = "";
-        this.tsTotalSpace2 = 0f;
-        this.tsUsedSpace2 = 0f;
-        this.tsUsage2 = 0f;
+        this.name2 = "";
+        this.totalSpace2 = 0f;
+        this.usedSpace2 = 0f;
+        this.usage2 = 0f;
     }
 
     public Sheet422PersonalModel(Timestamp date, String tsName2
             , Float tsTotalSpace2, Float tsUsedSpace2, Float tsUsage2) {
         this.date = date;
-        this.tsName2 = tsName2;
-        this.tsTotalSpace2 = tsTotalSpace2;
-        this.tsUsedSpace2 = tsUsedSpace2;
-        this.tsUsage2 = tsUsage2;
+        this.name2 = tsName2;
+        this.totalSpace2 = tsTotalSpace2;
+        this.usedSpace2 = tsUsedSpace2;
+        this.usage2 = tsUsage2;
     }
 
     public Timestamp getDate() {
@@ -38,46 +38,134 @@ public class Sheet422PersonalModel extends AbstractDataModel{
         this.date = date;
     }
 
-    public String getTsName2() {
-        return tsName2;
+    @Override
+    public String getName2() {
+        return name2;
     }
 
-    public void setTsName2(String tsName2) {
-        this.tsName2 = tsName2;
+    @Override
+    public void setName2(String name) {
+        this.name2 = name;
     }
 
-    public Float getTsTotalSpace2() {
-        return tsTotalSpace2;
+    @Override
+    public Float getTotalSpace2() {
+        return totalSpace2;
     }
 
-    public void setTsTotalSpace2(Float tsTotalSpace2) {
-        this.tsTotalSpace2 = tsTotalSpace2;
+    @Override
+    public void setTotalSpace2(Float totalSpace) {
+        this.totalSpace2 = totalSpace;
     }
 
-    public Float getTsUsedSpace2() {
-        return tsUsedSpace2;
+    @Override
+    public Float getUsedOrRemainSpace2() {
+        return usedSpace2;
     }
 
-    public void setTsUsedSpace2(Float tsUsedSpace2) {
-        this.tsUsedSpace2 = tsUsedSpace2;
+    @Override
+    public void setUsedOrRemainSpace2(Float usedOrRemainSpace) {
+        this.usedSpace2 = usedOrRemainSpace;
     }
 
-    public Float getTsUsage2() {
-        return tsUsage2;
+    @Override
+    public Float getUsage2() {
+        return usage2;
     }
 
-    public void setTsUsage2(Float tsUsage2) {
-        this.tsUsage2 = tsUsage2;
+    @Override
+    public void setUsage2(Float usage) {
+        this.usage2 = usage;
+    }
+
+    @Override
+    public String getName3() {
+        return null;
+    }
+
+    @Override
+    public void setName3(String name) {
+
+    }
+
+    @Override
+    public Float getTotalSpace3() {
+        return null;
+    }
+
+    @Override
+    public void setTotalSpace3(Float totalSpace) {
+
+    }
+
+    @Override
+    public Float getUsedOrRemainSpace3() {
+        return null;
+    }
+
+    @Override
+    public void setUsedOrRemainSpace3(Float usedOrRemainSpace) {
+
+    }
+
+    @Override
+    public Float getUsage3() {
+        return null;
+    }
+
+    @Override
+    public void setUsage3(Float usage) {
+
+    }
+
+    @Override
+    public String getName4() {
+        return null;
+    }
+
+    @Override
+    public void setName4(String name) {
+
+    }
+
+    @Override
+    public Float getTotalSpace4() {
+        return null;
+    }
+
+    @Override
+    public void setTotalSpace4(Float totalSpace) {
+
+    }
+
+    @Override
+    public Float getUsedOrRemainSpace4() {
+        return null;
+    }
+
+    @Override
+    public void setUsedOrRemainSpace4(Float usedOrRemainSpace) {
+
+    }
+
+    @Override
+    public Float getUsage4() {
+        return null;
+    }
+
+    @Override
+    public void setUsage4(Float usage) {
+
     }
 
     @Override
     public String toString() {
         return "Sheet422PersonalModel{" +
                 "date=" + date +
-                ", tsName2='" + tsName2 +
-                ", tsTotalSpace2=" + tsTotalSpace2 +
-                ", tsUsedSpace2=" + tsUsedSpace2 +
-                ", tsUsage2=" + tsUsage2 +
+                ", tsName2='" + name2 +
+                ", tsTotalSpace2=" + totalSpace2 +
+                ", tsUsedSpace2=" + usedSpace2 +
+                ", tsUsage2=" + usage2 +
                 '}';
     }
 }

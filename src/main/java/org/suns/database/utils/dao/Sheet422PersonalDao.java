@@ -87,10 +87,10 @@ public class Sheet422PersonalDao extends AbstractSheetDao{
                 + "?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setString(1, personalModel.getTsName2());
-        psmt.setFloat(2, personalModel.getTsTotalSpace2());
-        psmt.setFloat(3, personalModel.getTsUsedSpace2());
-        psmt.setFloat(4, personalModel.getTsUsage2());
+        psmt.setString(1, personalModel.getName2());
+        psmt.setFloat(2, personalModel.getTotalSpace2());
+        psmt.setFloat(3, personalModel.getUsedOrRemainSpace2());
+        psmt.setFloat(4, personalModel.getUsage2());
         psmt.setTimestamp(5, personalModel.getDate());
 
         psmt.execute();

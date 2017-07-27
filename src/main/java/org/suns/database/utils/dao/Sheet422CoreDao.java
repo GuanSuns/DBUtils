@@ -92,19 +92,19 @@ public class Sheet422CoreDao extends AbstractSheetDao{
                 + "?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setString(1, CoreModel.getTsName2());
-        psmt.setFloat(2, CoreModel.getTsTotalSpace2());
-        psmt.setFloat(3, CoreModel.getTsUsedSpace2());
-        psmt.setFloat(4, CoreModel.getTsUsage2());
+        psmt.setString(1, CoreModel.getName2());
+        psmt.setFloat(2, CoreModel.getTotalSpace2());
+        psmt.setFloat(3, CoreModel.getUsedOrRemainSpace2());
+        psmt.setFloat(4, CoreModel.getUsage2());
         psmt.setTimestamp(5, CoreModel.getDate());
-        psmt.setString(6, CoreModel.getTsName3());
-        psmt.setFloat(7, CoreModel.getTsTotalSpace3());
-        psmt.setFloat(8, CoreModel.getTsUsedSpace3());
-        psmt.setFloat(9, CoreModel.getTsUsage3());
-        psmt.setString(10, CoreModel.getTsName4());
-        psmt.setFloat(11, CoreModel.getTsTotalSpace4());
-        psmt.setFloat(12, CoreModel.getTsUsedSpace4());
-        psmt.setFloat(13, CoreModel.getTsUsage4());
+        psmt.setString(6, CoreModel.getName3());
+        psmt.setFloat(7, CoreModel.getTotalSpace3());
+        psmt.setFloat(8, CoreModel.getUsedOrRemainSpace3());
+        psmt.setFloat(9, CoreModel.getUsage3());
+        psmt.setString(10, CoreModel.getName4());
+        psmt.setFloat(11, CoreModel.getTotalSpace4());
+        psmt.setFloat(12, CoreModel.getUsedOrRemainSpace4());
+        psmt.setFloat(13, CoreModel.getUsage4());
 
         psmt.execute();
         DBUtils.closeConnection();

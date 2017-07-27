@@ -7,27 +7,27 @@ import java.sql.Timestamp;
  */
 public class Sheet422CoreModel extends Sheet422PersonalModel {
 
-    private String tsName3;
-    private Float tsTotalSpace3;
-    private Float tsUsedSpace3;
-    private Float tsUsage3;
+    private String name3;
+    private Float totalSpace3;
+    private Float usedSpace3;
+    private Float usage3;
 
-    private String tsName4;
-    private Float tsTotalSpace4;
-    private Float tsUsedSpace4;
-    private Float tsUsage4;
+    private String name4;
+    private Float totalSpace4;
+    private Float usedSpace4;
+    private Float usage4;
 
     public Sheet422CoreModel() {
         super();
-        this.tsName3 = "";
-        this.tsTotalSpace3 = 0f;
-        this.tsUsedSpace3 = 0f;
-        this.tsUsage3 = 0f;
+        this.name3 = "";
+        this.totalSpace3 = 0f;
+        this.usedSpace3 = 0f;
+        this.usage3 = 0f;
 
-        this.tsName4 = "";
-        this.tsTotalSpace4 = 0f;
-        this.tsUsedSpace4 = 0f;
-        this.tsUsage4 = 0f;
+        this.name4 = "";
+        this.totalSpace4 = 0f;
+        this.usedSpace4 = 0f;
+        this.usage4 = 0f;
     }
 
     public Sheet422CoreModel(Timestamp date, String tsName2
@@ -36,96 +36,112 @@ public class Sheet422CoreModel extends Sheet422PersonalModel {
             , Float tsUsedSpace3, Float tsUsage3, String tsName4, Float tsTotalSpace4
             , Float tsUsedSpace4, Float tsUsage4) {
         super(date, tsName2, tsTotalSpace2, tsUsedSpace2, tsUsage2);
-        this.tsName3 = tsName3;
-        this.tsTotalSpace3 = tsTotalSpace3;
-        this.tsUsedSpace3 = tsUsedSpace3;
-        this.tsUsage3 = tsUsage3;
-        this.tsName4 = tsName4;
-        this.tsTotalSpace4 = tsTotalSpace4;
-        this.tsUsedSpace4 = tsUsedSpace4;
-        this.tsUsage4 = tsUsage4;
+        this.name3 = tsName3;
+        this.totalSpace3 = tsTotalSpace3;
+        this.usedSpace3 = tsUsedSpace3;
+        this.usage3 = tsUsage3;
+        this.name4 = tsName4;
+        this.totalSpace4 = tsTotalSpace4;
+        this.usedSpace4 = tsUsedSpace4;
+        this.usage4 = tsUsage4;
     }
 
-    public String getTsName3() {
-        return tsName3;
+    @Override
+    public String getName3() {
+        return name3;
     }
 
-    public void setTsName3(String tsName3) {
-        this.tsName3 = tsName3;
+    @Override
+    public void setName3(String name) {
+        this.name3 = name;
     }
 
-    public Float getTsTotalSpace3() {
-        return tsTotalSpace3;
+    @Override
+    public Float getTotalSpace3() {
+        return totalSpace3;
     }
 
-    public void setTsTotalSpace3(Float tsTotalSpace3) {
-        this.tsTotalSpace3 = tsTotalSpace3;
+    @Override
+    public void setTotalSpace3(Float totalSpace) {
+        this.totalSpace3 = totalSpace;
     }
 
-    public Float getTsUsedSpace3() {
-        return tsUsedSpace3;
+    @Override
+    public Float getUsedOrRemainSpace3() {
+        return usedSpace3;
     }
 
-    public void setTsUsedSpace3(Float tsUsedSpace3) {
-        this.tsUsedSpace3 = tsUsedSpace3;
+    @Override
+    public void setUsedOrRemainSpace3(Float usedOrRemainSpace) {
+        this.usedSpace3 = usedOrRemainSpace;
     }
 
-    public Float getTsUsage3() {
-        return tsUsage3;
+    @Override
+    public Float getUsage3() {
+        return usage3;
     }
 
-    public void setTsUsage3(Float tsUsage3) {
-        this.tsUsage3 = tsUsage3;
+    @Override
+    public void setUsage3(Float usage) {
+        this.usage3 = usage;
     }
 
-    public String getTsName4() {
-        return tsName4;
+    @Override
+    public String getName4() {
+        return name4;
     }
 
-    public void setTsName4(String tsName4) {
-        this.tsName4 = tsName4;
+    @Override
+    public void setName4(String name) {
+        this.name4 = name;
     }
 
-    public Float getTsTotalSpace4() {
-        return tsTotalSpace4;
+    @Override
+    public Float getTotalSpace4() {
+        return totalSpace4;
     }
 
-    public void setTsTotalSpace4(Float tsTotalSpace4) {
-        this.tsTotalSpace4 = tsTotalSpace4;
+    @Override
+    public void setTotalSpace4(Float totalSpace) {
+        this.totalSpace4 = totalSpace;
     }
 
-    public Float getTsUsedSpace4() {
-        return tsUsedSpace4;
+    @Override
+    public Float getUsedOrRemainSpace4() {
+        return usedSpace4;
     }
 
-    public void setTsUsedSpace4(Float tsUsedSpace4) {
-        this.tsUsedSpace4 = tsUsedSpace4;
+    @Override
+    public void setUsedOrRemainSpace4(Float usedOrRemainSpace) {
+        this.usedSpace4 = usedOrRemainSpace;
     }
 
-    public Float getTsUsage4() {
-        return tsUsage4;
+    @Override
+    public Float getUsage4() {
+        return usage4;
     }
 
-    public void setTsUsage4(Float tsUsage4) {
-        this.tsUsage4 = tsUsage4;
+    @Override
+    public void setUsage4(Float usage) {
+        this.usage4 = usage;
     }
 
     @Override
     public String toString() {
         return "Sheet422CoreModel{" +
                 "date=" + date +
-                ", tsName3='" + tsName3 +
-                ", tsName2='" + tsName2 +
-                ", tsTotalSpace3=" + tsTotalSpace3 +
-                ", tsTotalSpace2=" + tsTotalSpace2 +
-                ", tsUsedSpace3=" + tsUsedSpace3 +
-                ", tsUsedSpace2=" + tsUsedSpace2 +
-                ", tsUsage3=" + tsUsage3 +
-                ", tsUsage2=" + tsUsage2 +
-                ", tsName4='" + tsName4 +
-                ", tsTotalSpace4=" + tsTotalSpace4 +
-                ", tsUsedSpace4=" + tsUsedSpace4 +
-                ", tsUsage4=" + tsUsage4 +
+                ", tsName3='" + name3 +
+                ", tsName2='" + name2 +
+                ", tsTotalSpace3=" + totalSpace3 +
+                ", tsTotalSpace2=" + totalSpace2 +
+                ", tsUsedSpace3=" + usedSpace3 +
+                ", tsUsedSpace2=" + usedSpace2 +
+                ", tsUsage3=" + usage3 +
+                ", tsUsage2=" + usage2 +
+                ", tsName4='" + name4 +
+                ", tsTotalSpace4=" + totalSpace4 +
+                ", tsUsedSpace4=" + usedSpace4 +
+                ", tsUsage4=" + usage4 +
                 '}';
     }
 }

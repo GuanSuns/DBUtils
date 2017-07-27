@@ -1,12 +1,8 @@
 package org.suns.database.utils.dao;
 
-import org.suns.database.utils.config.DBConfig;
-import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet423Config;
 import org.suns.database.utils.model.Sheet423PersonalModel;
 import org.suns.database.utils.utils.DBUtils;
-import org.suns.database.utils.utils.MySQLUtils;
-import org.suns.database.utils.utils.OracleUtils;
 import org.suns.database.utils.utils.Sheet423ModelFiller;
 
 import java.sql.*;
@@ -87,9 +83,9 @@ public class Sheet423PersonalDao extends AbstractSheetDao{
                 + "?,?,?,?,?,0)";
 
         PreparedStatement psmt = connection.prepareStatement(sql);
-        psmt.setString(1, personalModel.getAsmName2());
+        psmt.setString(1, personalModel.getName2());
         psmt.setFloat(2, personalModel.getTotalSpace2());
-        psmt.setFloat(3, personalModel.getRemainSpace2());
+        psmt.setFloat(3, personalModel.getUsedOrRemainSpace2());
         psmt.setFloat(4, personalModel.getUsage2());
         psmt.setTimestamp(5, personalModel.getDate());
 
