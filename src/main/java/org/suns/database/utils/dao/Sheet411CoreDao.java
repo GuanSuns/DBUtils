@@ -62,7 +62,7 @@ public class Sheet411CoreDao extends AbstractSheetDao{
 
     @Override
     protected String[] getFieldNames() {
-        return getFieldNames();
+        return Sheet411Config.getFieldNames();
     }
 
     @Override

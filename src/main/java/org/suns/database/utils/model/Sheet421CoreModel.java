@@ -54,4 +54,23 @@ public class Sheet421CoreModel extends Sheet421PersonalModel{
     public void setGoldUsage5(Float goldUsage5) {
         this.goldUsage5 = goldUsage5;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet421CoreModel{" +
+                "usage5=" + usage5 +
+                ", u01Usage5=" + u01Usage5 +
+                ", goldUsage5=" + goldUsage5 +
+                ", date=" + date +
+                ", usage2=" + usage2 +
+                ", u01Usage2=" + u01Usage2 +
+                ", goldUsage2=" + goldUsage2 +
+                ", usage3=" + usage3 +
+                ", u01Usage3=" + u01Usage3 +
+                ", goldUsage3=" + goldUsage3 +
+                ", usage4=" + usage4 +
+                ", u01Usage4=" + u01Usage4 +
+                ", goldUsage4=" + goldUsage4 +
+                "} " + super.toString();
+    }
 }

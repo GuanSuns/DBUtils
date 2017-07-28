@@ -18,6 +18,11 @@ public class DBTest {
     public void test_both() {
         test_sheet411Core();
         test_sheet411Personal();
+        test_sheet421Core();
+        test_sheet421Personal();
+        test_sheet422Core();
+        test_sheet422Personal();
+
     }
 
     //@Test

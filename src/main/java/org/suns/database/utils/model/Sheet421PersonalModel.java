@@ -128,4 +128,20 @@ public class Sheet421PersonalModel extends AbstractDataModel{
     public void setGoldUsage4(Float goldUsage4) {
         this.goldUsage4 = goldUsage4;
     }
+
+    @Override
+    public String toString() {
+        return "Sheet421PersonalModel{" +
+                "date=" + date +
+                ", usage2=" + usage2 +
+                ", u01Usage2=" + u01Usage2 +
+                ", goldUsage2=" + goldUsage2 +
+                ", usage3=" + usage3 +
+                ", u01Usage3=" + u01Usage3 +
+                ", goldUsage3=" + goldUsage3 +
+                ", usage4=" + usage4 +
+                ", u01Usage4=" + u01Usage4 +
+                ", goldUsage4=" + goldUsage4 +
+                "} " + super.toString();
+    }
 }
