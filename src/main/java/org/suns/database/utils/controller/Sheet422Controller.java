@@ -71,4 +71,10 @@ public class Sheet422Controller {
         preCheck();
         sheet422CoreDao.abortRecentInstances(minutes);
     }
+
+    public static void clearAll() throws Exception{
+        preCheck();
+        sheet422CoreDao.clearAll();
+        sheet422PersonalDao.clearAll();
+    }
 }

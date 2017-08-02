@@ -6,6 +6,7 @@ import org.suns.database.utils.config.Sheet411Config;
 import org.suns.database.utils.utils.DBUtils;
 import org.suns.database.utils.utils.MySQLUtils;
 import org.suns.database.utils.utils.OracleUtils;
+import org.suns.inspection.logger.InspectionLogger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -125,5 +126,14 @@ public abstract class AbstractSheetDao {
 
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
+    }
+
+    public void clearAll() throws Exception{
+        Connection connection = DBUtils.getConnection();
+        String sql = "DROP TABLE " + getTableName();
+
+        InspectionLogger.debug("Dropping table - " + sql);
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
     }
 }

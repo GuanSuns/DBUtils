@@ -44,7 +44,11 @@
             <version>12.1.0.2</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.suns</groupId>
+            <artifactId>InspectionLogger</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 
