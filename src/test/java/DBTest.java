@@ -16,13 +16,20 @@ import java.util.GregorianCalendar;
 public class DBTest {
     @Test
     public void test_both() {
+        try{
+            Sheet411Controller.clearAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+/*
         test_sheet411Core();
         test_sheet411Personal();
         test_sheet421Core();
         test_sheet421Personal();
         test_sheet422Core();
         test_sheet422Personal();
-
+*/
     }
 
     //@Test

@@ -130,9 +130,18 @@ public abstract class AbstractSheetDao {
 
     public void clearAll() throws Exception{
         Connection connection = DBUtils.getConnection();
-        String sql = "DROP TABLE " + getTableName();
+        String sql = "";
+        if(DBConfig.getDbType().equals(DBType.mySQL)){
+            sql = "DROP TABLE " + getTableName() + "IF EXISTS";
+        }else if(DBConfig.getDbType().equals(DBType.oracle)){
+            sql = "BEGIN EXECUTE IMMEDIATE 'DROP TABLE "
+                    + getTableName() + "';" +
+                    "EXCEPTION WHEN OTHERS THEN NULL;" +
+                    "END;";
+        }
 
         InspectionLogger.debug("Dropping table - " + sql);
+
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }
