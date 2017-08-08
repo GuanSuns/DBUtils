@@ -3,6 +3,7 @@ package org.suns.database.utils.dao;
 import org.suns.database.utils.config.DBConfig;
 import org.suns.database.utils.config.DBType;
 import org.suns.database.utils.config.Sheet411Config;
+import org.suns.database.utils.model.AbstractDataModel;
 import org.suns.database.utils.utils.DBUtils;
 import org.suns.database.utils.utils.MySQLUtils;
 import org.suns.database.utils.utils.OracleUtils;
@@ -11,6 +12,7 @@ import org.suns.inspection.logger.InspectionLogger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public abstract class AbstractSheetDao {
 
@@ -24,6 +26,7 @@ public abstract class AbstractSheetDao {
     protected abstract String getTriggerName();
     protected abstract String[] getFieldNames();
     protected abstract int getTimeFieldIndex();
+
 
     public void abortRecentInstances(int minutes) throws Exception{
         //Invalid argument

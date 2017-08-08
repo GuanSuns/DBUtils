@@ -17,7 +17,7 @@ public class DBTest {
     @Test
     public void test_both() {
         try{
-            Sheet411Controller.clearAll();
+            test_app_daily();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -30,6 +30,37 @@ public class DBTest {
         test_sheet422Core();
         test_sheet422Personal();
 */
+    }
+
+    public void test_app_daily() throws Exception{
+        Timestamp currentTime = new Timestamp(new Date().getTime());
+        DailyAppInspectionModel appModel = new DailyAppInspectionModel();
+        appModel.setInspectTime(currentTime);
+        appModel.setName("test long long long long name");
+        appModel.setUsageCPU(0.23f);
+        appModel.setUsageMemory(0.56f);
+        appModel.setFileSysUsage(0.12f);
+        appModel.setSvrState(1);
+        appModel.setHoggingCount(6.2f);
+        appModel.setDataSourceState(0);
+        appModel.setDataSourceConnectionCount(4.2f);
+
+        DBConfig.setConfigToMySQL();
+
+        DailyAppController.addCore(appModel);
+        DailyAppController.addPersonal(appModel);
+
+        ArrayList<DailyAppInspectionModel> models = DailyAppController
+                .getRecentInstancesPersonal(2);
+        for(DailyAppInspectionModel model : models){
+            System.out.println(model.toString());
+        }
+
+        models = DailyAppController
+                .getRecentInstancesCore(2);
+        for(DailyAppInspectionModel model : models){
+            System.out.println(model.toString());
+        }
     }
 
     //@Test
