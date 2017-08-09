@@ -1,13 +1,14 @@
 package org.suns.database.utils.config;
 
-public class DailyAppInspectionConfig {
-    private static String personalTableName = "DAILYPERSONALAPP";
-    private static String coreTableName = "DAILYCOREAPP";
+
+public class DailyDBInspectionConfig {
+    private static String personalTableName = "DAILYPERSONALDB";
+    private static String coreTableName = "DAILYCOREDB";
 
     private static String[] fieldNames = {"inspectionTime", "name"
-            , "usageCPU", "usageMemory", "fileSysUsage"
-            , "svrState", "hoggingCount"
-            , "dataSourceState", "dataSourceConnectionCount"
+            , "usageCPU", "usageMemory", "usageArchiveSpace", "hasLongTermLock"
+            , "hasOverloadTableSpace", "hasErrorInLog"
+            , "diskBusy", "hasOggError", "hasOggDelay"
     };
 
     private static final int timeFieldIndex = 0;
@@ -18,10 +19,12 @@ public class DailyAppInspectionConfig {
             + " , " + fieldNames[2] + " NUMERIC(38,2)"
             + " , " + fieldNames[3] + " NUMERIC(38,2)"
             + " , " + fieldNames[4] + " NUMERIC(38,2)"
-            + " , " + fieldNames[5] + "  TINYINT"
-            + " , " + fieldNames[6] + " NUMERIC(38,2)"
-            + " , " + fieldNames[7] + "  TINYINT"
-            + " , " + fieldNames[8] + " NUMERIC(38,2))";
+            + " , " + fieldNames[5] + " TINYINT"
+            + " , " + fieldNames[6] + " TINYINT"
+            + " , " + fieldNames[7] + " TINYINT"
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " TINYINT"
+            + " , " + fieldNames[10] + " TINYINT)";
 
     private static String mysqlTableDefinition = "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT"
             + " , " + fieldNames[0] + " DATETIME"
@@ -30,9 +33,11 @@ public class DailyAppInspectionConfig {
             + " , " + fieldNames[3] + " NUMERIC(38,2)"
             + " , " + fieldNames[4] + " NUMERIC(38,2)"
             + " , " + fieldNames[5] + " TINYINT"
-            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[6] + " TINYINT"
             + " , " + fieldNames[7] + " TINYINT"
-            + " , " + fieldNames[8] + " NUMERIC(38,2))";
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " TINYINT"
+            + " , " + fieldNames[10] + " TINYINT)";
 
     private static String oracleTableDefinition = "(id NUMBER(11) NOT NULL PRIMARY KEY"
             + " , " + fieldNames[0] + " DATE"
@@ -41,33 +46,23 @@ public class DailyAppInspectionConfig {
             + " , " + fieldNames[3] + " NUMERIC(38,2)"
             + " , " + fieldNames[4] + " NUMERIC(38,2)"
             + " , " + fieldNames[5] + " NUMBER"
-            + " , " + fieldNames[6] + " NUMERIC(38,2)"
+            + " , " + fieldNames[6] + " NUMBER"
             + " , " + fieldNames[7] + " NUMBER"
-            + " , " + fieldNames[8] + " NUMERIC(38,2))";
+            + " , " + fieldNames[8] + " NUMERIC(38,2)"
+            + " , " + fieldNames[9] + " NUMBER"
+            + " , " + fieldNames[10] + " NUMBER)";
 
-    private static String coreSeqName = "COREDAILYAPPSEQ";
-    private static String personalSeqName = "PERSONALDAILYAPPSEQ";
-    private static String coreTriggerName = "COREDAILYAPPTRIGGER";
-    private static String personalTriggerName = "PERSONALDAILYAPPTRIGGER";
-
-    public static int getTimeFieldIndex() {
-        return timeFieldIndex;
-    }
-
-    public static void setConfigToMySQL(){
-        tableDefinition = mysqlTableDefinition;
-    }
-
-    public static void setConfigToOracle(){
-        tableDefinition = oracleTableDefinition;
-    }
+    private static String coreSeqName = "COREDAILYDBSEQ";
+    private static String personalSeqName = "PERSONALDAILYDBSEQ";
+    private static String coreTriggerName = "COREDAILYDBTRIGGER";
+    private static String personalTriggerName = "PERSONALDAILYDBTRIGGER";
 
     public static String getPersonalTableName() {
         return personalTableName;
     }
 
     public static void setPersonalTableName(String personalTableName) {
-        DailyAppInspectionConfig.personalTableName = personalTableName;
+        DailyDBInspectionConfig.personalTableName = personalTableName;
     }
 
     public static String getCoreTableName() {
@@ -75,7 +70,7 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setCoreTableName(String coreTableName) {
-        DailyAppInspectionConfig.coreTableName = coreTableName;
+        DailyDBInspectionConfig.coreTableName = coreTableName;
     }
 
     public static String[] getFieldNames() {
@@ -83,7 +78,11 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setFieldNames(String[] fieldNames) {
-        DailyAppInspectionConfig.fieldNames = fieldNames;
+        DailyDBInspectionConfig.fieldNames = fieldNames;
+    }
+
+    public static int getTimeFieldIndex() {
+        return timeFieldIndex;
     }
 
     public static String getCoreSeqName() {
@@ -91,7 +90,7 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setCoreSeqName(String coreSeqName) {
-        DailyAppInspectionConfig.coreSeqName = coreSeqName;
+        DailyDBInspectionConfig.coreSeqName = coreSeqName;
     }
 
     public static String getPersonalSeqName() {
@@ -99,7 +98,7 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setPersonalSeqName(String personalSeqName) {
-        DailyAppInspectionConfig.personalSeqName = personalSeqName;
+        DailyDBInspectionConfig.personalSeqName = personalSeqName;
     }
 
     public static String getCoreTriggerName() {
@@ -107,7 +106,7 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setCoreTriggerName(String coreTriggerName) {
-        DailyAppInspectionConfig.coreTriggerName = coreTriggerName;
+        DailyDBInspectionConfig.coreTriggerName = coreTriggerName;
     }
 
     public static String getPersonalTriggerName() {
@@ -115,7 +114,7 @@ public class DailyAppInspectionConfig {
     }
 
     public static void setPersonalTriggerName(String personalTriggerName) {
-        DailyAppInspectionConfig.personalTriggerName = personalTriggerName;
+        DailyDBInspectionConfig.personalTriggerName = personalTriggerName;
     }
 
     public static String getPersonalTableDefinition() {

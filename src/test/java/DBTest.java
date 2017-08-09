@@ -17,7 +17,7 @@ public class DBTest {
     @Test
     public void test_both() {
         try{
-            test_app_daily();
+            test_db_daily();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -30,6 +30,39 @@ public class DBTest {
         test_sheet422Core();
         test_sheet422Personal();
 */
+    }
+
+    public void test_db_daily() throws Exception{
+        Timestamp currentTime = new Timestamp(new Date().getTime());
+        DailyDBInspectionModel dbModel = new DailyDBInspectionModel();
+        dbModel.setInspectTime(currentTime);
+        dbModel.setName("test long long long long name");
+        dbModel.setUsageCPU(0.23f);
+        dbModel.setUsageMemory(0.56f);
+        dbModel.setUsageArchiveSpace(0.12f);
+        dbModel.setHasLongTermLock(1);
+        dbModel.setHasOverloadTableSpace(0);
+        dbModel.setHasErrorInLog(1);
+        dbModel.setDiskBusy(0.56f);
+        dbModel.setHasOggDelay(0);
+        dbModel.setHasOggError(1);
+
+        DBConfig.setConfigToMySQL();
+
+        DailyDBController.addCore(dbModel);
+        DailyDBController.addPersonal(dbModel);
+
+        ArrayList<DailyDBInspectionModel> models = DailyDBController
+                .getRecentInstancesPersonal(2);
+        for(DailyDBInspectionModel model : models){
+            System.out.println(model.toString());
+        }
+
+        models = DailyDBController
+                .getRecentInstancesCore(2);
+        for(DailyDBInspectionModel model : models){
+            System.out.println(model.toString());
+        }
     }
 
     public void test_app_daily() throws Exception{

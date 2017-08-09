@@ -3,11 +3,17 @@
     <words>
       <w>coredailyappseq</w>
       <w>coredailyapptrigger</w>
+      <w>coredailydbseq</w>
+      <w>coredailydbtrigger</w>
       <w>curdate</w>
       <w>dailycoreapp</w>
+      <w>dailycoredb</w>
       <w>dailypersonalapp</w>
+      <w>dailypersonaldb</w>
       <w>personaldailyappseq</w>
       <w>personaldailyapptrigger</w>
+      <w>personaldailydbseq</w>
+      <w>personaldailydbtrigger</w>
       <w>psmt</w>
     </words>
   </dictionary>

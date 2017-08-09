@@ -3,7 +3,7 @@ package org.suns.database.utils.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class DailyAppInspectionModel {
+public class DailyAppInspectionModel extends AbstractDataModel{
     private Timestamp inspectTime;
     private String name;
     private Float usageCPU;
