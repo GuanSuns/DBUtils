@@ -57,6 +57,14 @@ public class DailyDBInspectionConfig {
     private static String coreTriggerName = "COREDAILYDBTRIGGER";
     private static String personalTriggerName = "PERSONALDAILYDBTRIGGER";
 
+    public static void setConfigToMySQL(){
+        tableDefinition = mysqlTableDefinition;
+    }
+
+    public static void setConfigToOracle(){
+        tableDefinition = oracleTableDefinition;
+    }
+
     public static String getPersonalTableName() {
         return personalTableName;
     }

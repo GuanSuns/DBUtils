@@ -118,4 +118,20 @@ public class DailyDBInspectionModel extends AbstractDataModel{
         this.hasOggDelay = hasOggDelay;
     }
 
+    @Override
+    public String toString() {
+        return "DailyDBInspectionModel{" +
+                "inspectTime=" + inspectTime +
+                ", name='" + name + '\'' +
+                ", usageCPU=" + usageCPU +
+                ", usageMemory=" + usageMemory +
+                ", usageArchiveSpace=" + usageArchiveSpace +
+                ", hasLongTermLock=" + hasLongTermLock +
+                ", hasOverloadTableSpace=" + hasOverloadTableSpace +
+                ", hasErrorInLog=" + hasErrorInLog +
+                ", diskBusy=" + diskBusy +
+                ", hasOggError=" + hasOggError +
+                ", hasOggDelay=" + hasOggDelay +
+                "} ";
+    }
 }

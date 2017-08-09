@@ -47,17 +47,19 @@ public class DBTest {
         dbModel.setHasOggDelay(0);
         dbModel.setHasOggError(1);
 
-        DBConfig.setConfigToMySQL();
+        DBConfig.setConfigToOracle();
 
         DailyDBController.addCore(dbModel);
         DailyDBController.addPersonal(dbModel);
 
+        System.out.println("Personal: ");
         ArrayList<DailyDBInspectionModel> models = DailyDBController
                 .getRecentInstancesPersonal(2);
         for(DailyDBInspectionModel model : models){
             System.out.println(model.toString());
         }
 
+        System.out.println("Core: ");
         models = DailyDBController
                 .getRecentInstancesCore(2);
         for(DailyDBInspectionModel model : models){
@@ -83,12 +85,14 @@ public class DBTest {
         DailyAppController.addCore(appModel);
         DailyAppController.addPersonal(appModel);
 
+        System.out.println("Personal: ");
         ArrayList<DailyAppInspectionModel> models = DailyAppController
                 .getRecentInstancesPersonal(2);
         for(DailyAppInspectionModel model : models){
             System.out.println(model.toString());
         }
 
+        System.out.println("Core: ");
         models = DailyAppController
                 .getRecentInstancesCore(2);
         for(DailyAppInspectionModel model : models){
