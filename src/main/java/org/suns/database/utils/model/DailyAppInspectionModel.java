@@ -20,9 +20,9 @@ public class DailyAppInspectionModel extends AbstractDataModel{
         this.usageCPU = 0f;
         this.usageMemory = 0f;
         this.fileSysUsage = 0f;
-        this.svrState = 1;
+        this.svrState = 0;
         this.hoggingCount = 0f;
-        this.dataSourceState = 1;
+        this.dataSourceState = 0;
         this.dataSourceConnectionCount = 0f;
     }
 
